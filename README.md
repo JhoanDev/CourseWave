@@ -53,13 +53,13 @@ O Diagrama de Classes mostra as principais entidades do sistema e seus relaciona
 
 ![Diagrama de Casos de Uso](img/UC_diagram.png)
 
-O Diagrama de Casos de Uso ilustra as interações entre os usuários (alunos e instrutores) e o sistema.
+O Diagrama de Casos de Uso ilustra as interações entre os usuários (alunos e professores) e o sistema.
 
 ## Requisitos
 
 ### Requisitos Funcionais
 
-1. **Cadastro de Usuário**: O sistema deve permitir que novos usuários (alunos e instrutores) se registrem na plataforma, fornecendo informações básicas como nome, e-mail e senha.
+1. **Cadastro de Usuário**: O sistema deve permitir que novos usuários (alunos e professores) se registrem na plataforma, fornecendo informações básicas como nome, e-mail e senha.
 2. **Autenticação e Login**: Usuários devem poder acessar a plataforma através de login com e-mail e senha cadastrados.
 3. **Inscrição em Cursos**: Alunos devem poder se inscrever em qualquer curso disponível na plataforma para acessar seu conteúdo.
 4. **Acesso ao Conteúdo do Curso**: Após a inscrição, os alunos devem ter acesso completo ao conteúdo do curso, incluindo artigos, atividades e uma avaliação final.
