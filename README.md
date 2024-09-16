@@ -18,7 +18,7 @@
 
 ## Introdução
 
-Bem-vindo ao [Nome do Projeto]! Este projeto é uma plataforma educacional desenvolvida para fornecer um ambiente de aprendizado interativo para alunos e instrutores. O objetivo principal é facilitar o gerenciamento e o acesso ao conteúdo educacional, melhorar a interação entre alunos e instrutores e acompanhar o progresso dos alunos de maneira eficiente.
+Bem-vindo ao CourseWave! Este projeto é uma plataforma educacional desenvolvida para fornecer um ambiente de aprendizado interativo para alunos e instrutores. O objetivo principal é facilitar o gerenciamento e o acesso ao conteúdo educacional, melhorar a interação entre alunos e instrutores e acompanhar o progresso dos alunos de maneira eficiente.
 
 ## Sobre o Projeto
 
@@ -27,9 +27,9 @@ O Course Wave é uma aplicação web baseada em Java Spring Boot que utiliza o p
 ## Participantes
 
 - **Jhoan Fernandes** - Desenvolvedor FullStack
-- **[Nome do Participante]** - Desenvolvedor Backend
-- **[Nome do Participante]** - Designer de UI/UX 
-- **[Nome do Participante]** - Tester
+- **João Augusto** - Desenvolvedor Backend
+- **Luis Felipe** - Designer de UI/UX e Front-end
+- **Pedro Augusto** - Tester
 
 ## Tecnologias
 
@@ -51,9 +51,9 @@ O Diagrama de Classes mostra as principais entidades do sistema e seus relaciona
 
 ### Diagrama de Casos de Uso
 
-![Diagrama de Casos de Uso](link-para-diagrama-de-casos-de-uso)
+![Diagrama de Casos de Uso](img/UC_diagram.png)
 
-O Diagrama de Casos de Uso ilustra as interações entre os usuários (alunos e instrutores) e o sistema, destacando casos de uso como `Registrar Usuário`, `Inscrever em Curso`, `Adicionar Módulo`, e `Enviar Feedback`.
+O Diagrama de Casos de Uso ilustra as interações entre os usuários (alunos e instrutores) e o sistema.
 
 ## Requisitos
 
