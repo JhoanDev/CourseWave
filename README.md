@@ -45,9 +45,9 @@ O projeto é desenvolvido com as seguintes tecnologias:
 
 ### Diagrama de Classes
 
-![Diagrama de Classes](link-para-diagrama-de-classes)
+![Diagrama de Classes](img/class_diagram.png)
 
-O Diagrama de Classes mostra as principais entidades do sistema e seus relacionamentos, incluindo `User`, `Course`, `Enrollment`, e `Feedback`.
+O Diagrama de Classes mostra as principais entidades do sistema e seus relacionamentos, incluindo `Usuario`, `Curso` entre outros.
 
 ### Diagrama de Casos de Uso
 
