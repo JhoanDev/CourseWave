@@ -45,13 +45,13 @@ O projeto é desenvolvido com as seguintes tecnologias:
 
 ### Diagrama de Classes
 
-![Diagrama de Classes](img/class_diagram.png)
+![Diagrama de Classes](assets/img/class_diagram.png)
 
 O Diagrama de Classes mostra as principais entidades do sistema e seus relacionamentos, incluindo `Usuario`, `Curso` entre outros.
 
 ### Diagrama de Casos de Uso
 
-![Diagrama de Casos de Uso](img/UC_diagram.png)
+![Diagrama de Casos de Uso](assets/img/UC_diagram.png)
 
 O Diagrama de Casos de Uso ilustra as interações entre os usuários (alunos e professores) e o sistema.
 
