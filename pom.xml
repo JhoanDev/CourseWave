@@ -19,6 +19,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+
+        <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-web-api</artifactId>
             <version>11.0.0-M3</version>
@@ -52,4 +58,7 @@
             </plugin>
         </plugins>
     </build>
+
+
+
 </project>
