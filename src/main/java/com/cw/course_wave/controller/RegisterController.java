@@ -8,13 +8,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 @WebServlet(name = "RegisterController", urlPatterns = "/register")
 public class RegisterController extends HttpServlet {
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String login = request.getParameter("login");
@@ -23,32 +22,28 @@ public class RegisterController extends HttpServlet {
         String confirmPassword = request.getParameter("confirm-password");
         String role = request.getParameter("role");
 
+        // Validações básicas de formulário
         if (name == null || login == null || email == null || password == null || confirmPassword == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Dados inválidos.");
+            request.setAttribute("error", "Todos os campos são obrigatórios.");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
         if (!password.equals(confirmPassword)) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "As senhas não coincidem.");
+            request.setAttribute("error", "As senhas não coincidem.");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
-
-        try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "INSERT INTO users (name, login, email, password, role) VALUES (?, ?, ?, ?, ?)";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, name);
-                statement.setString(2, login);
-                statement.setString(3, email);
-                statement.setString(4, password);
-                statement.setString(5, role);
-                statement.executeUpdate();
-            }
-
-            response.sendRedirect("index.jsp");
-        } catch (SQLException | ClassNotFoundException e) {
+        // Query para inserir os dados
+        String sql = "INSERT INTO users (name, login, email, password, role) VALUES (?, ?, ?, ?, ?)";
+        try {
+            DatabaseConnection.executeQuery(sql, name, login, email, password, role);
+            response.sendRedirect("index.jsp?success=true"); // retornando para a pagina de login
+        } catch (SQLException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro ao registrar o usuário.");
+            // Define uma mensagem de erro e redireciona de volta para o formulário de registro
+            request.setAttribute("error", "Erro ao registrar o usuário. Tente novamente.");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
-
 }

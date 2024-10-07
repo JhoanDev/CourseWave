@@ -64,7 +64,20 @@
 <div class="container">
   <h2>Cadastrar-se</h2>
 
+  <!-- Alerta de erro -->
+  <%
+    String error = (String) request.getAttribute("error");
+    if (error != null) {
+  %>
+  <div style="color: red; margin-bottom: 15px;">
+    <%= error %>
+  </div>
+  <%
+    }
+  %>
+
   <form action="register" method="POST">
+    <!-- Seu formulário existente -->
     <div class="form-group">
       <label for="name">Nome:</label>
       <input type="text" id="name" name="name" required>
