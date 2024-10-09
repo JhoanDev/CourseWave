@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Course Wave</title>
+    <title>Register Course - Course Wave</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@
             margin: 0;
         }
         .container {
-            max-width: 400px;
+            max-width: 600px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -32,36 +32,25 @@
             margin-bottom: 5px;
             color: #555;
         }
-        .form-group input {
+        .form-group input, .form-group textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
         }
-        .form-group button, .form-group a {
+        .form-group button {
             width: 100%;
             padding: 10px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            text-align: center;
+            background-color: #28a745; /* Green */
             color: white;
-            text-decoration: none;
-            margin-top: 10px;
-        }
-        .form-group button {
-            background-color: #28a745; /* Verde */
         }
         .form-group button:hover {
             background-color: #218838;
-        }
-        .register-btn {
-            background-color: #007bff; /* Azul */
-        }
-        .register-btn:hover {
-            background-color: #0056b3;
         }
         .error {
             color: red;
@@ -72,26 +61,26 @@
 <body>
 
 <div class="container">
-    <h2>Login</h2>
-    <form action="login" method="POST"> <!-- O caminho deve corresponder ao servlet -->
+    <h2>Register Course</h2>
+    <form action="registerCourse" method="POST">
         <div class="form-group">
-            <label for="login">Nome de Usuário:</label>
-            <input type="text" id="login" name="login" required>
+            <label for="courseTitle">Course Title:</label>
+            <input type="text" id="courseTitle" name="courseTitle" required>
         </div>
         <div class="form-group">
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="courseDescription">Course Description:</label>
+            <textarea id="courseDescription" name="courseDescription" rows="4" required></textarea>
         </div>
         <div class="form-group">
-            <button type="submit">Entrar</button>
+            <label for="courseDuration">Course Duration:</label>
+            <input type="text" id="courseDuration" name="courseDuration" required>
         </div>
         <div class="form-group">
-            <a href="register.jsp" class="register-btn">Cadastrar-se</a>
+            <button type="submit">Register Course</button>
         </div>
         <div class="error">
             <%
-                // Acessando a mensagem de erro setada no LoginController
-                String errorMessage = (String) request.getAttribute("error");
+                String errorMessage = request.getParameter("errorMessage");
                 if (errorMessage != null) {
             %>
             <p><%= errorMessage %></p>

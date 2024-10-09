@@ -1,9 +1,6 @@
 package com.cw.course_wave.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.Logger;
 
 public class DatabaseConnection {
@@ -33,15 +30,16 @@ public class DatabaseConnection {
         return instance;
     }
 
-    public static void closeConnection() throws SQLException {
-        if (instance != null && !instance.isClosed()) {
-            instance.close();
-            logger.info("Conexão com o banco de dados fechada.");
-        }
-    }
+    // Método para consultas SELECT
+    public static ResultSet executeSelect(String sql, Object... params) throws SQLException {
+        Connection connection = getInstance();
+        PreparedStatement statement = connection.prepareStatement(sql);
 
-    public static boolean isConnectionActive() throws SQLException {
-        return instance != null && !instance.isClosed();
+        for (int i = 0; i < params.length; i++) {
+            statement.setObject(i + 1, params[i]);
+        }
+
+        return statement.executeQuery(); // Retorna o ResultSet da consulta
     }
 
     // Método para execução de queries de UPDATE/INSERT/DELETE
