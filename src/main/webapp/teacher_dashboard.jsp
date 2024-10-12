@@ -68,6 +68,7 @@
     // Inicializando variáveis para os dados do professor
     String nome = "";
     String email = "";
+    int professorId = -1; // Variável para o ID do professor
 
     // Recuperando os dados do professor do banco de dados
     if (login != null) {
@@ -77,12 +78,13 @@
 
         try {
             connection = DatabaseConnection.getInstance();
-            String sql = "SELECT name, email FROM users WHERE login = ?";
+            String sql = "SELECT id, name, email FROM users WHERE login = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, login);
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
+                professorId = resultSet.getInt("id"); // Recuperando o ID do professor
                 nome = resultSet.getString("name");
                 email = resultSet.getString("email");
             }
@@ -121,7 +123,7 @@
 
     <div class="section">
         <h2>Cadastrar Novo Curso</h2>
-        <a href="register_course.jsp" class="btn">Cadastrar Curso</a>
+        <a href="register_course.jsp?professorId=<%= professorId %>" class="btn">Cadastrar Curso</a>
     </div>
 </div>
 
