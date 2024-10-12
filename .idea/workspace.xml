@@ -11,8 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="feat: Falta a parte de links">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/database/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +72,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.30.executor": "Run",
-    "git-widget-placeholder": "feature/curso",
+    "git-widget-placeholder": "feature/reestrutura",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -164,6 +163,7 @@
       <workItem from="1728332484604" duration="1270000" />
       <workItem from="1728587596997" duration="632000" />
       <workItem from="1728748034432" duration="4027000" />
+      <workItem from="1728775667823" duration="414000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Falta a parte de links">
       <option name="closed" value="true" />
