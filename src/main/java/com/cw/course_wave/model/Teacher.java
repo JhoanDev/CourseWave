@@ -2,12 +2,11 @@ package com.cw.course_wave.model;
 
 public class Teacher extends User{
 
-    public Teacher(String name, String email, String password) {
-        super(name, email, password, "teacher");
+    public Teacher(int id, String name, String login, String email, String password, String role) {
+        super(id, name, login, email, password, role);
     }
 
-    public Teacher(int id, String name, String email, String password) {
-        super(id, name, email, password, "teacher");
+    public Teacher(String name, String login, String email, String password, String role) {
+        super(name, login, email, password, role);
     }
-
 }
