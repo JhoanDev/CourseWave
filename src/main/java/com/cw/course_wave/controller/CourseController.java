@@ -8,8 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 @WebServlet(name = "CourseController", urlPatterns = "/cadastrarCurso")
@@ -40,24 +38,10 @@ public class CourseController extends HttpServlet {
             return;
         }
 
-        Connection connection = null;
-        PreparedStatement courseStatement = null;
-        PreparedStatement linkStatement = null;
-
         try {
-            connection = DatabaseConnection.getInstance();
-
-            // Inserindo o curso
+            // Inserindo o curso e obtendo o ID gerado
             String courseSql = "INSERT INTO courses (title, description, hours, teacher_id) VALUES (?, ?, ?, ?)";
-            courseStatement = connection.prepareStatement(courseSql, PreparedStatement.RETURN_GENERATED_KEYS);
-            courseStatement.setString(1, title);
-            courseStatement.setString(2, description);
-            courseStatement.setInt(3, Integer.parseInt(hours));
-            courseStatement.setInt(4, teacherId);
-            courseStatement.executeUpdate();
-
-            // Obtendo o ID do curso inserido
-            int courseId = courseStatement.getGeneratedKeys().getInt(1);
+            int courseId = DatabaseConnection.executeQueryWithGeneratedKey(courseSql, title, description, Integer.parseInt(hours), teacherId);
 
             // Inserindo links, se houver
             String[] linkNames = request.getParameterValues("linkName[]");
@@ -65,34 +49,19 @@ public class CourseController extends HttpServlet {
             String[] linkUrls = request.getParameterValues("linkUrl[]");
 
             if (linkNames != null) {
-                String linkSql = "INSERT INTO course_links (course_id, name, type, url) VALUES (?, ?, ?, ?)";
-                linkStatement = connection.prepareStatement(linkSql);
-
+                String linkSql = "INSERT INTO links (course_id, name, type, url) VALUES (?, ?, ?, ?)";
                 for (int i = 0; i < linkNames.length; i++) {
-                    linkStatement.setInt(1, courseId);
-                    linkStatement.setString(2, linkNames[i]);
-                    linkStatement.setString(3, linkTypes[i]);
-                    linkStatement.setString(4, linkUrls[i]);
-                    linkStatement.addBatch();
+                    if (linkNames[i] != null && !linkNames[i].isEmpty()) {
+                        DatabaseConnection.executeQuery(linkSql, courseId, linkNames[i], linkTypes[i], linkUrls[i]);
+                    }
                 }
-                linkStatement.executeBatch(); // Executando a inserção em lote
             }
 
-            // Redireciona para uma página de sucesso
-            response.sendRedirect("success.jsp");
+            response.sendRedirect("teacher_dashboard.jsp?success=true"); // Redireciona após o cadastro
         } catch (SQLException e) {
             e.printStackTrace();
-            request.setAttribute("error", "Erro ao cadastrar o curso. Tente novamente.");
+            request.setAttribute("error", "Erro ao cadastrar o curso: " + e.getMessage());
             request.getRequestDispatcher("register_course.jsp").forward(request, response);
-        } finally {
-            // Fechando recursos
-            try {
-                if (linkStatement != null) linkStatement.close();
-                if (courseStatement != null) courseStatement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

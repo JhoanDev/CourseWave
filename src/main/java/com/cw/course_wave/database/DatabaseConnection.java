@@ -57,20 +57,31 @@ public class DatabaseConnection {
         }
     }
 
-    // Método para executar queries de UPDATE/INSERT e retornar o ID gerado
     public static int executeQueryWithGeneratedKey(String sql, Object... params) throws SQLException {
-        try (PreparedStatement pstmt = prepareStatement(sql, params)) {
-            pstmt.executeUpdate();
-            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+        try (PreparedStatement statement = prepareStatementWithGeneratedKey(sql, params)) {
+            int rowsAffected = statement.executeUpdate();
+            logger.info("Query executada com sucesso. Linhas afetadas: " + rowsAffected);
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    return generatedKeys.getInt(1);
+                    return generatedKeys.getInt(1); // Retorna o ID gerado
                 } else {
                     throw new SQLException("Falha ao obter o ID gerado.");
                 }
             }
         } catch (SQLException e) {
-            logger.severe("Erro ao executar a query com chave gerada: " + e.getMessage());
-            throw new SQLException("Erro ao executar a query com chave gerada", e);
+            logger.severe("Erro ao executar a query: " + e.getMessage());
+            throw new SQLException("Erro ao executar a query", e);
         }
     }
+
+    // Método para preparar o PreparedStatement com chave gerada
+    private static PreparedStatement prepareStatementWithGeneratedKey(String sql, Object... params) throws SQLException {
+        PreparedStatement statement = getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        for (int i = 0; i < params.length; i++) {
+            statement.setObject(i + 1, params[i]);
+        }
+        return statement;
+    }
+
 }
