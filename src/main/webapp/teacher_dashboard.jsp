@@ -120,7 +120,7 @@
                 if (courses != null && !courses.isEmpty()) {
                     for (Course course : courses) {
             %>
-            <li onclick="location.href='courseDetails.jsp?courseId=<%= course.getId() %>';">
+            <li onclick="location.href='course.jsp?courseId=<%= course.getId() %>';">
                 <div class="course-info">
                     <strong>Título:</strong> <%= course.getTitle() %> <br>
                     <strong>Descrição:</strong> <%= course.getDescription() %> <br>
