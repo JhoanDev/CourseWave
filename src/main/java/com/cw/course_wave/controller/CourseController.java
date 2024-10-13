@@ -23,6 +23,55 @@ public class CourseController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String method = request.getParameter("_method");
+        if ("DELETE".equals(method)) {
+            int courseId = Integer.parseInt(request.getParameter("courseId"));
+            try {
+                courseDao.deleteCourse(courseId);
+                response.sendRedirect("teacher_dashboard.jsp?deleted=true");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else if ("PUT".equals(method)) {
+            int courseId = Integer.parseInt(request.getParameter("courseId"));
+            Course course = getCourse(request);
+            if (course == null) {
+                request.getRequestDispatcher("edit_course.jsp").forward(request, response);
+                return;
+            }
+            course.setId(courseId);
+            course = addLinksToCourse(course, request);
+            try {
+                courseDao.updateCourse(course);
+                response.sendRedirect("teacher_dashboard.jsp?updated=true");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("error", "Erro ao atualizar o curso: " + e.getMessage());
+                request.getRequestDispatcher("edit_course.jsp").forward(request, response);
+            }
+
+        } else {
+            Course course = getCourse(request);
+            if (course == null) {
+                request.getRequestDispatcher("register_course.jsp").forward(request, response);
+                return;
+            }
+
+            course = addLinksToCourse(course, request);
+
+            try {
+                courseDao.insertCourse(course);
+                response.sendRedirect("teacher_dashboard.jsp?success=true"); // Redireciona após o cadastro
+            } catch (SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("error", "Erro ao cadastrar o curso: " + e.getMessage());
+                request.getRequestDispatcher("register_course.jsp").forward(request, response);
+            }
+        }
+    }
+
+    private Course getCourse(HttpServletRequest request) {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String hours = request.getParameter("hours");
@@ -30,8 +79,7 @@ public class CourseController extends HttpServlet {
 
         if (title == null || description == null || hours == null || teacherIdParam == null) {
             request.setAttribute("error", "Todos os campos são obrigatórios.");
-            request.getRequestDispatcher("register_course.jsp").forward(request, response);
-            return;
+            return null;
         }
 
         int teacherId;
@@ -40,12 +88,13 @@ public class CourseController extends HttpServlet {
         } catch (NumberFormatException e) {
             e.printStackTrace();
             request.setAttribute("error", "ID do professor inválido.");
-            request.getRequestDispatcher("register_course.jsp").forward(request, response);
-            return;
+            return null;
         }
 
-        Course course = new Course(title, description, Integer.parseInt(hours), teacherId);
+        return new Course(title, description, Integer.parseInt(hours), teacherId);
+    }
 
+    public Course addLinksToCourse(Course course, HttpServletRequest request) {
         String[] linkNames = request.getParameterValues("linkName[]");
         String[] linkTypes = request.getParameterValues("linkType[]");
         String[] linkUrls = request.getParameterValues("linkUrl[]");
@@ -55,39 +104,7 @@ public class CourseController extends HttpServlet {
                 course.addLink(new Link(linkNames[i], linkUrls[i], linkTypes[i]));
             }
         }
-
-        try {
-            courseDao.insertCourse(course);
-            response.sendRedirect("teacher_dashboard.jsp?success=true"); // Redireciona após o cadastro
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Erro ao cadastrar o curso: " + e.getMessage());
-            request.getRequestDispatcher("register_course.jsp").forward(request, response);
-        }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-
-        if (user == null || !"teacher".equals(user.getRole())) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
-
-        int teacherId = user.getId(); // ID do professor logado
-
-        try {
-            ArrayList<Course> courses = courseDao.getCoursesByTeacherId(teacherId);
-
-            request.setAttribute("courses", courses);
-            request.getRequestDispatcher("teacher_dashboard.jsp").forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Erro ao buscar os cursos: " + e.getMessage());
-            request.getRequestDispatcher("teacher_dashboard.jsp").forward(request, response);
-        }
+        return course;
     }
 }
 
