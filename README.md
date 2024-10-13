@@ -1,28 +1,27 @@
-# CourseWave
+'# CourseWave
 
 ## Sumário
 
-- [CourseWave](#coursewave)
-  - [Sumário](#sumário)
-  - [Introdução](#introdução)
-  - [Sobre o Projeto](#sobre-o-projeto)
-  - [Participantes](#participantes)
-  - [Tecnologias](#tecnologias)
-  - [Diagramas](#diagramas)
-    - [Diagrama de Classes](#diagrama-de-classes)
-    - [Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
-  - [Requisitos](#requisitos)
-    - [Requisitos Funcionais](#requisitos-funcionais)
-    - [Requisitos Não Funcionais](#requisitos-não-funcionais)
-  - [Padrões de Projeto](#padrões-de-projeto)
-
+- [Sumário](#sumário)
+- [Introdução](#introdução)
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Participantes](#participantes)
+- [Tecnologias](#tecnologias)
+- [Diagramas](#diagramas)
+  - [Diagrama de Classes](#diagrama-de-classes)
+  - [Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
+- [Requisitos](#requisitos)
+  - [Requisitos Funcionais](#requisitos-funcionais)
+  - [Requisitos Não Funcionais](#requisitos-não-funcionais)
+- [Padrões de Projeto](#padrões-de-projeto)
 ## Introdução
 
-Bem-vindo ao CourseWave! Este projeto é uma plataforma educacional desenvolvida para fornecer um ambiente de aprendizado interativo para alunos e instrutores. O objetivo principal é facilitar o gerenciamento e o acesso ao conteúdo educacional, melhorar a interação entre alunos e instrutores e acompanhar o progresso dos alunos de maneira eficiente.
+O **CourseWave** é um sistema de gerenciamento de cursos online que permite a professores cadastrar, atualizar e excluir cursos, além de fornecer um painel para visualizar informações de suas disciplinas. Alunos podem se registrar no sistema para se inscreverem em cursos e vizualizarem o conteúdo. O projeto foi desenvolvido com foco na simplicidade e eficiência, aplicando boas práticas de desenvolvimento de software e padrões de projeto.
+
 
 ## Sobre o Projeto
 
-O Course Wave é uma aplicação web baseada em Java Spring Boot que utiliza o padrão MVC (Model-View-Controller) para oferecer uma experiência de aprendizado online. A plataforma permite o registro de usuários, autenticação, inscrição em cursos, acesso a conteúdos, e oferece funcionalidades para o gerenciamento de cursos e avaliações. Além disso, inclui funcionalidades de feedback e monitoramento do progresso dos alunos.
+Este sistema foi desenvolvido para atender às necessidades básicas de gerenciamento de cursos e de usuários. Ele possibilita o cadastro de novos usuários (professores e alunos), o gerenciamento de cursos pelos professores e a navegação pelos alunos. Ele foi estruturado com base nos princípios da arquitetura MVC, utilizando DAOs para acesso ao banco de dados e a aplicação de padrões de projeto, como Singleton e Factory.
 
 ## Participantes
 
@@ -33,13 +32,13 @@ O Course Wave é uma aplicação web baseada em Java Spring Boot que utiliza o p
 
 ## Tecnologias
 
-O projeto é desenvolvido com as seguintes tecnologias:
-- **Java Spring Boot** - Framework para o desenvolvimento do backend.
-- **Thymeleaf** - Motor de templates para a construção das views.
-- **MySQL** - Banco de dados relacional para armazenar dados da aplicação.
-- **Bootstrap** - Framework CSS para estilização das páginas.
-- **JUnit** - Framework para testes unitários e de integração.
-- **Git** - Controle de versão.
+O projeto **CourseWave** foi construído utilizando as seguintes tecnologias:
+
+- **Java**: Linguagem de programação principal.
+- **Jakarta Servlet**: Para lidar com as requisições HTTP.
+- **JSP (JavaServer Pages)**: Para renderização dinâmica no lado do servidor.
+- **MySQL**: Banco de dados relacional para armazenamento de informações.
+- **HTML, CSS, JavaScript**: Para a interface do usuário.
 
 ## Diagramas
 
@@ -59,23 +58,40 @@ O Diagrama de Casos de Uso ilustra as interações entre os usuários (alunos e 
 
 ### Requisitos Funcionais
 
-1. **Cadastro de Usuário**: O sistema deve permitir que novos usuários (alunos e professores) se registrem na plataforma, fornecendo informações básicas como nome, e-mail e senha.
-2. **Autenticação e Login**: Usuários devem poder acessar a plataforma através de login com e-mail e senha cadastrados.
-3. **Inscrição em Cursos**: Alunos devem poder se inscrever em qualquer curso disponível na plataforma para acessar seu conteúdo.
-4. **Acesso ao Conteúdo do Curso**: Após a inscrição, os alunos devem ter acesso completo ao conteúdo do curso, incluindo artigos, atividades e uma avaliação final.
-5. **Gerenciamento de Cursos, Avaliações e Atividades**: Instrutores devem poder criar e gerenciar cursos, incluindo a criação de avaliações e atividades, enquanto os alunos devem poder entregar e participar dessas atividades.
-6. **Feedback e Comentários**: Alunos devem poder enviar feedback e fazer comentários em cada módulo dos cursos, facilitando a interação com instrutores e outros alunos.
-7. **Progresso do Curso**: O sistema deve monitorar e exibir o progresso do aluno em cada curso, mostrando a porcentagem de conclusão.
+- **RF01**: O sistema deve permitir que **professores** e **alunos** realizem o login e o cadastro, garantindo a autenticação de suas credenciais.
+
+- **RF02**: O sistema deve permitir que **professores** criem novos cursos com as seguintes funcionalidades:
+  - **RF02.1**: Inclusão de detalhes como título, descrição, carga horária e links adicionais de conteúdo.
+  - **RF02.2**: Capacidade de adicionar ou remover links dinamicamente.
+
+- **RF03**: O sistema deve permitir que **professores** gerenciem seus cursos cadastrados, com as seguintes funcionalidades:
+  - **RF03.1**: Visualizar a lista de cursos cadastrados.
+  - **RF03.2**: Editar as informações dos cursos.
+  - **RF03.3**: Excluir cursos cadastrados.
+
+- **RF04**: O sistema deve permitir que **alunos** inscrevam-se em cursos com a capacidade de:
+  - **RF04.1**: Verificar e confirmar a matrícula no curso.
+
+- **RF05**: O sistema deve permitir que **alunos** visualizem os cursos nos quais estão matriculados e realizem as seguintes ações:
+  - **RF05.1**: Cancelar a matrícula em um curso.
+  - **RF05.2**: Marcar o curso como concluído após completá-lo.
+
+- **RF06**: O sistema deve redirecionar automaticamente os usuários para seus respectivos painéis de controle, com base em seu papel:
+  - **RF06.1**: Professores são redirecionados para o painel de gerenciamento de cursos.
+  - **RF06.2**: Alunos são redirecionados para o painel de visualização e gerenciamento de suas matrículas.
 
 ### Requisitos Não Funcionais
 
-1. **Segurança**: O sistema deve implementar criptografia para proteger as senhas e informações sensíveis dos usuários.
-2. **Compatibilidade**: O sistema deve funcionar corretamente nos principais navegadores da web, como Chrome, Firefox e Safari.
-3. **Manutenibilidade**: O código deve ser bem documentado para facilitar a manutenção e possíveis expansões futuras.
+- **RNF01**: O sistema deve implementar criptografia para proteger as senhas e informações sensíveis dos usuários.
+- **RNF02**: O sistema deve funcionar corretamente nos principais navegadores da web, como Chrome, Firefox e Safari.
+- **RNF03**: O código deve ser bem documentado para facilitar a manutenção e possíveis expansões futuras.
 
 ## Padrões de Projeto
 
-O projeto utiliza os seguintes padrões de projeto:
+O projeto **CourseWave** aplica os seguintes padrões de projeto:
 
-- **Observer Pattern (Padrão Observador)**: Usado para notificar alunos sobre atualizações de cursos e outros eventos importantes, permitindo uma comunicação eficiente e em tempo real entre o sistema e os usuários.
-- **Strategy Pattern (Padrão Estratégia)**: Implementado para definir e alterar estratégias de avaliação de cursos dinamicamente, permitindo flexibilidade na forma como as notas e avaliações são calculadas.
+1. **Singleton**: Utilizado na classe `DatabaseConnection` para garantir que apenas uma instância de conexão com o banco de dados seja criada ao longo da aplicação.
+   
+2. **Factory**: Implementado para a criação de diferentes tipos de usuários (alunos e professores) no sistema, permitindo que o sistema escolha o tipo de usuário adequado com base nas informações fornecidas no cadastro.
+
+Esses padrões foram implementados com o objetivo de melhorar a organização e a escalabilidade do projeto, tornando o código mais fácil de manter e estender conforme as necessidades futuras.

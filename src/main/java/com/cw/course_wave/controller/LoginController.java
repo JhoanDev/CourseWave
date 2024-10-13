@@ -2,7 +2,6 @@ package com.cw.course_wave.controller;
 
 import com.cw.course_wave.dao.UserDao;
 import com.cw.course_wave.model.User;
-import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,7 +16,6 @@ import java.util.Objects;
 public class LoginController extends HttpServlet {
 
     private final UserDao userDao = new UserDao();
-    private final Gson gson = new Gson();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -3,18 +3,15 @@ package com.cw.course_wave.controller;
 import com.cw.course_wave.dao.CourseDao;
 import com.cw.course_wave.model.Course;
 import com.cw.course_wave.model.Link;
-import com.cw.course_wave.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @WebServlet(name = "CourseController", urlPatterns = "/course")
 public class CourseController extends HttpServlet {
