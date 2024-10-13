@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="com.cw.course_wave.database.DatabaseConnection" %>
+<%@ page import="com.cw.course_wave.model.User" %>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -63,40 +63,18 @@
 <body>
 
 <%
-    String login = (String) session.getAttribute("login");
+    // Recuperando os dados do usuário da sessão
+    User user = (User) session.getAttribute("user");
 
-    // Inicializando variáveis para os dados do professor
-    String nome = "";
-    String email = "";
-    int professorId = -1; // Variável para o ID do professor
-
-    // Recuperando os dados do professor do banco de dados
-    if (login != null) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = DatabaseConnection.getInstance();
-            String sql = "SELECT id, name, email FROM users WHERE login = ?";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, login);
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                professorId = resultSet.getInt("id"); // Recuperando o ID do professor
-                nome = resultSet.getString("name");
-                email = resultSet.getString("email");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Fechar recursos
-            if (resultSet != null) try { resultSet.close(); } catch (SQLException ignore) {}
-            if (statement != null) try { statement.close(); } catch (SQLException ignore) {}
-            if (connection != null) try { connection.close(); } catch (SQLException ignore) {}
-        }
+    // Verificando se o usuário está logado
+    if (user == null) {
+        response.sendRedirect("index.jsp"); // Redireciona para a página de login se não houver usuário
+        return;
     }
+
+    String nome = user.getName();
+    String email = user.getEmail();
+    int professorId = user.getId(); // ID do professor
 %>
 
 <div class="header">
