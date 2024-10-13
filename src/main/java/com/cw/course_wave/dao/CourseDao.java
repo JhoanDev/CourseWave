@@ -19,6 +19,16 @@ public class CourseDao {
         }
     }
 
+    public void updateCourse(Course course) throws SQLException {
+        String sql = "UPDATE courses SET title = ?, description = ?, hours = ?, teacher_id = ? WHERE id = ?";
+        DatabaseConnection.executeQuery(sql, course.getTitle(), course.getDescription(), course.getHours(), course.getUserId(), course.getId());
+        linkDao.deleteLinksByCourseId(course.getId());
+        for (Link link : course.getLinks()) {
+            link.setCourseId(course.getId());
+            linkDao.insertLink(link);
+        }
+    }
+
     public Course getCourseById(int id) throws SQLException {
         String sql = "SELECT * FROM courses WHERE id = ?";
         var resultSet = DatabaseConnection.executeSelect(sql, id);

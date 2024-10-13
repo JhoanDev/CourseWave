@@ -150,18 +150,22 @@
 <%
     // Recuperando o ID do curso da URL
     String courseIdParam = request.getParameter("courseId");
-    if (courseIdParam == null) {
-        out.println("<h2>ID do curso não fornecido!</h2>");
-        return;
+    int courseId = 0;
+
+    try {
+        courseId = Integer.parseInt(courseIdParam); // Convertendo o ID para inteiro
+    } catch (NumberFormatException e) {
+        out.println("<h2>ID de curso inválido!</h2>");
+        return; // Encerra a execução se o ID for inválido
     }
-    int courseId = Integer.parseInt(courseIdParam); // Convertendo o ID para inteiro
 
     CourseDao courseDao = new CourseDao();
     Course course = null;
     try {
         course = courseDao.getCourseById(courseId);
     } catch (SQLException e) {
-        out.println("<h2>Erro ao buscar curso!</h2>");
+        out.println("<h2>Erro ao carregar os detalhes do curso!</h2>");
+        e.printStackTrace(); // Você pode querer exibir uma mensagem amigável ao usuário aqui
         return;
     }
 
@@ -193,7 +197,7 @@
 
         <% if (userTypeNumber == 1) { %>
         <!-- Botões de edição e remoção para o professor -->
-        <a href="editCourse.jsp?courseId=<%= course.getId() %>" class="btn">Editar Curso</a>
+        <a href="edit_course.jsp?courseId=<%= course.getId() %>" class="btn">Editar Curso</a>
         <form action="course" method="post" style="display:inline;">
             <input type="hidden" name="courseId" value="<%= course.getId() %>">
             <input type="hidden" name="_method" value="DELETE">
@@ -206,9 +210,7 @@
         <h2>Conteúdo do curso</h2>
         <ul class="link-list">
             <%
-                if (links == null || links.isEmpty()) {
-                    out.println("<li>Não há links disponíveis para este curso.</li>");
-                } else {
+                if (links != null && !links.isEmpty()) {
                     for (Link link : links) {
                         String linkTypeClass = "";
                         String icon = "";
@@ -235,11 +237,16 @@
                         }
             %>
             <li class="<%= linkTypeClass %>">
-                <%= icon %> <strong><%= link.getName() %>:</strong>
-                <a href="<%= link.getUrl().startsWith("http://") || link.getUrl().startsWith("https://") ? link.getUrl() : "https://" + link.getUrl() %>" target="_blank"><%= link.getUrl() != null ? link.getUrl() : link.getName() %></a>
+                <%= icon %> <strong><%= link.getName() %></strong>:
+                <a href="<%= link.getUrl().startsWith("http://") || link.getUrl().startsWith("https://") ? link.getUrl() : "https://" + link.getUrl() %>"
+                   target="_blank"><%= link.getUrl() != null ? link.getUrl() : link.getName() %></a>
             </li>
             <%
-                    }
+                }
+            } else {
+            %>
+            <li>Não há links disponíveis para este curso.</li>
+            <%
                 }
             %>
         </ul>

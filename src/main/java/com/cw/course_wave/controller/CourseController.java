@@ -33,39 +33,32 @@ public class CourseController extends HttpServlet {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        } else {
-            String title = request.getParameter("title");
-            String description = request.getParameter("description");
-            String hours = request.getParameter("hours");
-            String teacherIdParam = request.getParameter("teacherId");
-
-            if (title == null || description == null || hours == null || teacherIdParam == null) {
-                request.setAttribute("error", "Todos os campos são obrigatórios.");
-                request.getRequestDispatcher("register_course.jsp").forward(request, response);
+        } else if ("PUT".equals(method)) {
+            int courseId = Integer.parseInt(request.getParameter("courseId"));
+            Course course = getCourse(request);
+            if (course == null) {
+                request.getRequestDispatcher("edit_course.jsp").forward(request, response);
                 return;
             }
-
-            int teacherId;
+            course.setId(courseId);
+            course = addLinksToCourse(course, request);
             try {
-                teacherId = Integer.parseInt(teacherIdParam);
-            } catch (NumberFormatException e) {
+                courseDao.updateCourse(course);
+                response.sendRedirect("teacher_dashboard.jsp?updated=true");
+            } catch (SQLException e) {
                 e.printStackTrace();
-                request.setAttribute("error", "ID do professor inválido.");
+                request.setAttribute("error", "Erro ao atualizar o curso: " + e.getMessage());
+                request.getRequestDispatcher("edit_course.jsp").forward(request, response);
+            }
+
+        } else {
+            Course course = getCourse(request);
+            if (course == null) {
                 request.getRequestDispatcher("register_course.jsp").forward(request, response);
                 return;
             }
 
-            Course course = new Course(title, description, Integer.parseInt(hours), teacherId);
-
-            String[] linkNames = request.getParameterValues("linkName[]");
-            String[] linkTypes = request.getParameterValues("linkType[]");
-            String[] linkUrls = request.getParameterValues("linkUrl[]");
-
-            for (int i = 0; i < linkNames.length; i++) {
-                if (linkNames[i] != null && !linkNames[i].isEmpty()) {
-                    course.addLink(new Link(linkNames[i], linkUrls[i], linkTypes[i]));
-                }
-            }
+            course = addLinksToCourse(course, request);
 
             try {
                 courseDao.insertCourse(course);
@@ -76,6 +69,42 @@ public class CourseController extends HttpServlet {
                 request.getRequestDispatcher("register_course.jsp").forward(request, response);
             }
         }
+    }
+
+    private Course getCourse(HttpServletRequest request) {
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String hours = request.getParameter("hours");
+        String teacherIdParam = request.getParameter("teacherId");
+
+        if (title == null || description == null || hours == null || teacherIdParam == null) {
+            request.setAttribute("error", "Todos os campos são obrigatórios.");
+            return null;
+        }
+
+        int teacherId;
+        try {
+            teacherId = Integer.parseInt(teacherIdParam);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            request.setAttribute("error", "ID do professor inválido.");
+            return null;
+        }
+
+        return new Course(title, description, Integer.parseInt(hours), teacherId);
+    }
+
+    public Course addLinksToCourse(Course course, HttpServletRequest request) {
+        String[] linkNames = request.getParameterValues("linkName[]");
+        String[] linkTypes = request.getParameterValues("linkType[]");
+        String[] linkUrls = request.getParameterValues("linkUrl[]");
+
+        for (int i = 0; i < linkNames.length; i++) {
+            if (linkNames[i] != null && !linkNames[i].isEmpty()) {
+                course.addLink(new Link(linkNames[i], linkUrls[i], linkTypes[i]));
+            }
+        }
+        return course;
     }
 }
 
