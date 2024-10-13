@@ -9,13 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="refact: Utilizando dao no login">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/CourseDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/LinkDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/model/Course.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/model/Link.java" afterDir="false" />
+    <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="refact: Utilizando dao no cadastro de cursos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/register_course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register_course.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +59,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -71,21 +73,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.30.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/reestrutura&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Tomcat Server.Tomcat 10.1.30.executor": "Run",
+    "git-widget-placeholder": "feature/reestrutura",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Tomcat 10.1.30" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.30" ALTERNATIVE_JRE_ENABLED="false">
       <deployment>
@@ -168,7 +170,7 @@
       <workItem from="1728587596997" duration="632000" />
       <workItem from="1728748034432" duration="4027000" />
       <workItem from="1728775667823" duration="1602000" />
-      <workItem from="1728777480004" duration="1630000" />
+      <workItem from="1728777480004" duration="3576000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Falta a parte de links">
       <option name="closed" value="true" />
@@ -202,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728777979345</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refact: Utilizando dao no cadastro de cursos">
+      <option name="closed" value="true" />
+      <created>1728779270169</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728779270169</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,7 +223,8 @@
     <MESSAGE value="refact: dependencias maven" />
     <MESSAGE value="refact: Utilizando dao no registro" />
     <MESSAGE value="refact: Utilizando dao no login" />
-    <option name="LAST_COMMIT_MESSAGE" value="refact: Utilizando dao no login" />
+    <MESSAGE value="refact: Utilizando dao no cadastro de cursos" />
+    <option name="LAST_COMMIT_MESSAGE" value="refact: Utilizando dao no cadastro de cursos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -222,6 +233,11 @@
           <properties class="java.sql.SQLException" package="java.sql" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
