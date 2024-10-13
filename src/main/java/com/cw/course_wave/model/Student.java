@@ -1,13 +1,13 @@
 package com.cw.course_wave.model;
 
-public class Teacher implements User {
+public class Student implements User {
     private String name;
     private String login;
     private String email;
     private String password;
     private int id;
 
-    public Teacher(int id, String name, String login, String email, String password) {
+    public Student(int id, String name, String login, String email, String password) {
         this.name = name;
         this.login = login;
         this.email = email;
@@ -15,9 +15,11 @@ public class Teacher implements User {
         this.id = id;
     }
 
-    @Override
-    public int getId() {
-        return id;
+    public Student(String name, String login, String email, String password) {
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.password = password;
     }
 
     @Override
@@ -26,13 +28,13 @@ public class Teacher implements User {
     }
 
     @Override
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @Override
@@ -45,16 +47,14 @@ public class Teacher implements User {
         this.id = id;
     }
 
-    public Teacher(String name, String login, String email, String password) {
-        this.name = name;
-        this.login = login;
-        this.email = email;
-        this.password = password;
+    @Override
+    public int getId() {
+        return id;
     }
 
     @Override
     public String getRole() {
-        return "teacher";
+        return "student";
     }
 
     @Override

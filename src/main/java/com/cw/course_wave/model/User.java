@@ -1,76 +1,26 @@
 package com.cw.course_wave.model;
 
-public class User {
-    int id;
-    String name;
-    String login;
-    String email;
-    String password;
-    String role;
+public interface User {
+    String getRole();
 
-    public User(int id, String name, String login, String email, String password, String role) {
-        this.id = id;
-        this.name = name;
-        this.login = login;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
+    String getName();
 
-    public User(String name, String login, String email, String password, String role) {
-        this.name = name;
-        this.login = login;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
+    String getLogin();
 
+    String getEmail();
 
-    public int getId() {
-        return id;
-    }
+    String getPassword();
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    int getId();
 
-    public String getName() {
-        return name;
-    }
+    void setName(String name);
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    void setLogin(String login);
 
-    public String getPassword() {
-        return password;
-    }
+    void setEmail(String email);
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    void setPassword(String password);
 
-    public String getEmail() {
-        return email;
-    }
+    void setId(int id);
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 }

@@ -1,7 +1,8 @@
 package com.cw.course_wave.controller;
 
 import com.cw.course_wave.dao.UserDao;
-import com.cw.course_wave.database.DatabaseConnection;
+import com.cw.course_wave.factory.StudentFactory;
+import com.cw.course_wave.factory.TeacherFactory;
 import com.cw.course_wave.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet(name = "RegisterController", urlPatterns = "/register")
 public class RegisterController extends HttpServlet {
@@ -39,7 +39,13 @@ public class RegisterController extends HttpServlet {
             return;
         }
 
-        User user = new User(name, login, email, password, role);
+        User user;
+        if ("student".equals(role)) {
+            user = new StudentFactory().createUser(name, login, email, password);
+        } else {
+            user = new TeacherFactory().createUser(name, login, email, password);
+        }
+
         try {
             userDao.insertUser(user);
             response.sendRedirect("index.jsp?success=true");
@@ -48,6 +54,5 @@ public class RegisterController extends HttpServlet {
             request.setAttribute("error", "Erro ao cadastrar usuário. Tente novamente.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
-
     }
 }
