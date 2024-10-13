@@ -75,8 +75,8 @@
     <h2>Login</h2>
     <form action="login" method="POST">
         <div class="form-group">
-            <label for="username">Nome de Usuário:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="login">Nome de Usuário:</label>
+            <input type="text" id="login" name="login" required>
         </div>
         <div class="form-group">
             <label for="password">Senha:</label>
@@ -90,7 +90,8 @@
         </div>
         <div class="error">
             <%
-                String errorMessage = request.getParameter("errorMessage");
+                // Acessando a mensagem de erro setada no LoginController
+                String errorMessage = (String) request.getAttribute("error");
                 if (errorMessage != null) {
             %>
             <p><%= errorMessage %></p>
