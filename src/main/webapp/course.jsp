@@ -12,39 +12,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Curso - Course Wave</title>
-    <!-- Adicionando o Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
             margin: 0;
             padding: 0;
+            line-height: 1.6;
+            color: #333;
         }
 
         .header {
             background-color: #007bff;
             color: white;
-            padding: 15px 20px;
+            padding: 20px;
             text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: auto;
             padding: 20px;
         }
 
         .section {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 10px;
             margin-bottom: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .section h2 {
-            color: #333;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .link-list {
@@ -78,7 +83,6 @@
             color: #007bff;
             text-decoration: none;
             margin-left: 10px;
-            word-break: break-word;
             flex-grow: 1;
         }
 
@@ -86,7 +90,6 @@
             text-decoration: underline;
         }
 
-        /* Estilizando ícones de acordo com o tipo de link */
         .link-list li.pdf i {
             color: #d9534f; /* Vermelho para PDF */
         }
@@ -103,7 +106,6 @@
             color: #5cb85c; /* Verde para imagens */
         }
 
-        /* Estilos para o botão */
         .btn {
             background-color: #28a745;
             color: white;
@@ -112,10 +114,22 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-right: 10px;
+            border: none;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .btn:hover {
             background-color: #218838;
+        }
+
+        .btn-remove {
+            background-color: #dc3545;
+        }
+
+        .btn-remove:hover {
+            background-color: #c82333;
         }
 
         /* Responsividade */
@@ -136,6 +150,10 @@
 <%
     // Recuperando o ID do curso da URL
     String courseIdParam = request.getParameter("courseId");
+    if (courseIdParam == null) {
+        out.println("<h2>ID do curso não fornecido!</h2>");
+        return;
+    }
     int courseId = Integer.parseInt(courseIdParam); // Convertendo o ID para inteiro
 
     CourseDao courseDao = new CourseDao();
@@ -143,7 +161,8 @@
     try {
         course = courseDao.getCourseById(courseId);
     } catch (SQLException e) {
-        throw new RuntimeException(e);
+        out.println("<h2>Erro ao buscar curso!</h2>");
+        return;
     }
 
     // Verificando se o curso foi encontrado
@@ -155,28 +174,42 @@
     List<Link> links = course.getLinks();
 %>
 
+<%
+    Integer userTypeNumber = (session != null && session.getAttribute("usertype") != null)
+            ? (Integer) session.getAttribute("usertype")
+            : 0;
+%>
+
 <div class="header">
-    <h1>Detalhes do Curso: <%= course.getTitle() %>
-    </h1>
+    <h1>Detalhes do Curso: <%= course.getTitle() %></h1>
 </div>
 
 <div class="container">
     <div class="section">
         <h2>Informações do Curso</h2>
-        <p><strong>Título:</strong> <%= course.getTitle() %>
-        </p>
-        <p><strong>Descrição:</strong> <%= course.getDescription() %>
-        </p>
+        <p><strong>Título:</strong> <%= course.getTitle() %></p>
+        <p><strong>Descrição:</strong> <%= course.getDescription() %></p>
         <p><strong>Carga Horária:</strong> <%= course.getHours() %> horas</p>
+
+        <% if (userTypeNumber == 1) { %>
+        <!-- Botões de edição e remoção para o professor -->
+        <a href="editCourse.jsp?courseId=<%= course.getId() %>" class="btn">Editar Curso</a>
+        <form action="course" method="post" style="display:inline;">
+            <input type="hidden" name="courseId" value="<%= course.getId() %>">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-remove" onclick="return confirm('Tem certeza que deseja remover este curso?');">Remover Curso</button>
+        </form>
+        <% } %>
     </div>
 
     <div class="section">
         <h2>Conteúdo do curso</h2>
         <ul class="link-list">
             <%
-                if (links != null && !links.isEmpty()) {
+                if (links == null || links.isEmpty()) {
+                    out.println("<li>Não há links disponíveis para este curso.</li>");
+                } else {
                     for (Link link : links) {
-                        // Determinar a classe CSS e o ícone com base no tipo do link
                         String linkTypeClass = "";
                         String icon = "";
                         switch (link.getType()) {
@@ -202,17 +235,11 @@
                         }
             %>
             <li class="<%= linkTypeClass %>">
-                <%= icon %> <strong><%= link.getName() %>
-            </strong>:
+                <%= icon %> <strong><%= link.getName() %>:</strong>
                 <a href="<%= link.getUrl().startsWith("http://") || link.getUrl().startsWith("https://") ? link.getUrl() : "https://" + link.getUrl() %>" target="_blank"><%= link.getUrl() != null ? link.getUrl() : link.getName() %></a>
-                </a>
             </li>
             <%
-                }
-            } else {
-            %>
-            <li>Não há links disponíveis para este curso.</li>
-            <%
+                    }
                 }
             %>
         </ul>

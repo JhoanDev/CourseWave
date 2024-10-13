@@ -58,4 +58,9 @@ public class CourseDao {
         return courses;
     }
 
+    public void deleteCourse(int courseId) throws SQLException {
+        String sql = "DELETE FROM courses WHERE id = ?";
+        DatabaseConnection.executeQuery(sql, courseId);
+    }
+
 }

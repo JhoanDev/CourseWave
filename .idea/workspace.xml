@@ -9,9 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="refact: Utilizando dao no cadastro de cursos">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/course.jsp" afterDir="false" />
+    <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="feat: detalhes do curso">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/CourseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/CourseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/course.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -210,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728779270169</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: detalhes do curso">
+      <option name="closed" value="true" />
+      <created>1728783970221</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728783970221</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,7 +232,8 @@
     <MESSAGE value="refact: Utilizando dao no registro" />
     <MESSAGE value="refact: Utilizando dao no login" />
     <MESSAGE value="refact: Utilizando dao no cadastro de cursos" />
-    <option name="LAST_COMMIT_MESSAGE" value="refact: Utilizando dao no cadastro de cursos" />
+    <MESSAGE value="feat: detalhes do curso" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: detalhes do curso" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -231,11 +242,6 @@
           <properties class="java.sql.SQLException" package="java.sql" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java</url>
-          <line>81</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

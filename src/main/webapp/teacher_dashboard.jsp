@@ -2,6 +2,8 @@
 <%@ page import="com.cw.course_wave.model.Course" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.cw.course_wave.model.User" %>
+<%@ page import="com.cw.course_wave.dao.CourseDao" %>
+<%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -82,7 +84,7 @@
 <%
     // Recuperando os dados do usuário da sessão
     User user = (User) session.getAttribute("user");
-
+    session.setAttribute("usertype", 1);
     // Verificando se o usuário está logado
     if (user == null) {
         response.sendRedirect("index.jsp"); // Redireciona para a página de login se não houver usuário
@@ -92,9 +94,17 @@
     String nome = user.getName();
     String email = user.getEmail();
     int professorId = user.getId(); // ID do professor
-
+    int userTypeNumber = 1; // professor
     // Recuperando a lista de cursos do controlador
-    ArrayList<Course> courses = (ArrayList<Course>) request.getAttribute("courses");
+    CourseDao courseDao = new CourseDao();
+
+    ArrayList<Course> courses = null;
+    try {
+        courses = courseDao.getCoursesByTeacherId(professorId);
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+
 %>
 
 <div class="header">
@@ -112,9 +122,6 @@
     <!-- Cursos Cadastrados -->
     <div class="section">
         <h2>Seus Cursos</h2>
-        <form action="course" method="GET" style="margin-bottom: 20px;">
-            <button type="submit" class="btn">Carregar Cursos</button>
-        </form>
         <ul class="course-list">
             <%
                 if (courses != null && !courses.isEmpty()) {
