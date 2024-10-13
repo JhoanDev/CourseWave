@@ -44,13 +44,23 @@
             padding: 0;
         }
         .course-list li {
+            display: flex; /* Utiliza flexbox para uma apresentação mais bonita */
+            justify-content: space-between; /* Alinha os itens com espaço entre eles */
             padding: 10px;
             border-bottom: 1px solid #ddd;
             cursor: pointer; /* Adiciona um cursor pointer */
             transition: background-color 0.3s; /* Adiciona uma transição suave */
+            align-items: center; /* Alinha os itens verticalmente */
         }
         .course-list li:hover {
             background-color: #f0f0f0; /* Altera a cor de fundo ao passar o mouse */
+        }
+        .course-info {
+            flex-grow: 1; /* Permite que esta parte cresça e ocupe espaço */
+            margin-right: 20px; /* Adiciona espaço entre as informações do curso e o botão */
+        }
+        .course-hours {
+            font-weight: bold;
         }
         .btn {
             background-color: #007bff; /* Altera a cor do botão */
@@ -102,7 +112,7 @@
     <!-- Cursos Cadastrados -->
     <div class="section">
         <h2>Seus Cursos</h2>
-        <form action="course" method="GET">
+        <form action="course" method="GET" style="margin-bottom: 20px;">
             <button type="submit" class="btn">Carregar Cursos</button>
         </form>
         <ul class="course-list">
@@ -111,9 +121,12 @@
                     for (Course course : courses) {
             %>
             <li onclick="location.href='courseDetails.jsp?courseId=<%= course.getId() %>';">
-                <strong>Título:</strong> <%= course.getTitle() %> <br>
-                <strong>Descrição:</strong> <%= course.getDescription() %> <br>
-                <strong>Carga Horária:</strong> <%= course.getHours() %> horas
+                <div class="course-info">
+                    <strong>Título:</strong> <%= course.getTitle() %> <br>
+                    <strong>Descrição:</strong> <%= course.getDescription() %> <br>
+                    <span class="course-hours"><strong>Carga Horária:</strong> <%= course.getHours() %> horas</span>
+                </div>
+                <button class="btn">Detalhes</button> <!-- Botão de detalhes -->
             </li>
             <%
                 }
