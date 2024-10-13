@@ -120,6 +120,9 @@
 </head>
 <body>
 
+<div action="course" method="GET">
+
+
 <%
     // Recuperando o ID do professor passado na URL
     String professorIdParam = request.getParameter("professorId");
@@ -135,7 +138,7 @@
 
 <div class="container">
     <h2>Cadastrar Curso</h2>
-    <form action="cadastrarCurso" method="POST">
+    <form action="course" method="POST">
         <div class="form-group" style="display:none;">
             <input type="hidden" name="teacherId" value="<%= professorId %>">
         </div>

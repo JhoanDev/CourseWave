@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.sql.*" %>
-<%@ page import="com.cw.course_wave.database.DatabaseConnection" %>
-<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ page import="com.cw.course_wave.model.Course" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.cw.course_wave.model.User" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -44,63 +44,61 @@
             padding: 0;
         }
         .course-list li {
+            display: flex; /* Utiliza flexbox para uma apresentação mais bonita */
+            justify-content: space-between; /* Alinha os itens com espaço entre eles */
             padding: 10px;
             border-bottom: 1px solid #ddd;
+            cursor: pointer; /* Adiciona um cursor pointer */
+            transition: background-color 0.3s; /* Adiciona uma transição suave */
+            align-items: center; /* Alinha os itens verticalmente */
+        }
+        .course-list li:hover {
+            background-color: #f0f0f0; /* Altera a cor de fundo ao passar o mouse */
+        }
+        .course-info {
+            flex-grow: 1; /* Permite que esta parte cresça e ocupe espaço */
+            margin-right: 20px; /* Adiciona espaço entre as informações do curso e o botão */
+        }
+        .course-hours {
+            font-weight: bold;
         }
         .btn {
-            background-color: #28a745;
+            background-color: #007bff; /* Altera a cor do botão */
             color: white;
-            padding: 10px;
+            padding: 10px 15px; /* Adiciona um pouco mais de padding */
             text-decoration: none;
             border-radius: 5px;
             cursor: pointer;
+            border: none; /* Remove a borda padrão */
+            transition: background-color 0.3s; /* Adiciona uma transição suave */
         }
         .btn:hover {
-            background-color: #218838;
+            background-color: #0056b3; /* Cor do botão ao passar o mouse */
         }
     </style>
 </head>
 <body>
 
 <%
-    String login = (String) session.getAttribute("login");
+    // Recuperando os dados do usuário da sessão
+    User user = (User) session.getAttribute("user");
 
-    // Inicializando variáveis para os dados do professor
-    String nome = "";
-    String email = "";
-    int professorId = -1; // Variável para o ID do professor
-
-    // Recuperando os dados do professor do banco de dados
-    if (login != null) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = DatabaseConnection.getInstance();
-            String sql = "SELECT id, name, email FROM users WHERE login = ?";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, login);
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                professorId = resultSet.getInt("id"); // Recuperando o ID do professor
-                nome = resultSet.getString("name");
-                email = resultSet.getString("email");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Fechar recursos
-            if (resultSet != null) try { resultSet.close(); } catch (SQLException ignore) {}
-            if (statement != null) try { statement.close(); } catch (SQLException ignore) {}
-            if (connection != null) try { connection.close(); } catch (SQLException ignore) {}
-        }
+    // Verificando se o usuário está logado
+    if (user == null) {
+        response.sendRedirect("index.jsp"); // Redireciona para a página de login se não houver usuário
+        return;
     }
+
+    String nome = user.getName();
+    String email = user.getEmail();
+    int professorId = user.getId(); // ID do professor
+
+    // Recuperando a lista de cursos do controlador
+    ArrayList<Course> courses = (ArrayList<Course>) request.getAttribute("courses");
 %>
 
 <div class="header">
-    <h1>Bem-vindo, Professor!</h1>
+    <h1>Bem-vindo, Professor <%= nome %>!</h1>
 </div>
 
 <div class="container">
@@ -114,10 +112,30 @@
     <!-- Cursos Cadastrados -->
     <div class="section">
         <h2>Seus Cursos</h2>
+        <form action="course" method="GET" style="margin-bottom: 20px;">
+            <button type="submit" class="btn">Carregar Cursos</button>
+        </form>
         <ul class="course-list">
-            <li>Curso 1 - Introdução à Programação</li>
-            <li>Curso 2 - Estruturas de Dados</li>
-            <li>Curso 3 - Desenvolvimento Web</li>
+            <%
+                if (courses != null && !courses.isEmpty()) {
+                    for (Course course : courses) {
+            %>
+            <li onclick="location.href='courseDetails.jsp?courseId=<%= course.getId() %>';">
+                <div class="course-info">
+                    <strong>Título:</strong> <%= course.getTitle() %> <br>
+                    <strong>Descrição:</strong> <%= course.getDescription() %> <br>
+                    <span class="course-hours"><strong>Carga Horária:</strong> <%= course.getHours() %> horas</span>
+                </div>
+                <button class="btn">Detalhes</button> <!-- Botão de detalhes -->
+            </li>
+            <%
+                }
+            } else {
+            %>
+            <li>Você ainda não cadastrou nenhum curso.</li>
+            <%
+                }
+            %>
         </ul>
     </div>
 

@@ -9,10 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="feat: Falta a parte de links">
+    <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="refact: Utilizando dao no cadastro de cursos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/database/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/register_course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register_course.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +59,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -73,7 +78,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.30.executor": "Run",
-    "git-widget-placeholder": "feature/curso",
+    "git-widget-placeholder": "feature/reestrutura",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -164,6 +169,8 @@
       <workItem from="1728332484604" duration="1270000" />
       <workItem from="1728587596997" duration="632000" />
       <workItem from="1728748034432" duration="4027000" />
+      <workItem from="1728775667823" duration="1602000" />
+      <workItem from="1728777480004" duration="3576000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Falta a parte de links">
       <option name="closed" value="true" />
@@ -173,7 +180,39 @@
       <option name="project" value="LOCAL" />
       <updated>1728750320362</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="refact: dependencias maven">
+      <option name="closed" value="true" />
+      <created>1728776300573</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728776300573</updated>
+    </task>
+    <task id="LOCAL-00003" summary="refact: Utilizando dao no registro">
+      <option name="closed" value="true" />
+      <created>1728777030481</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728777030481</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refact: Utilizando dao no login">
+      <option name="closed" value="true" />
+      <created>1728777979345</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728777979345</updated>
+    </task>
+    <task id="LOCAL-00005" summary="refact: Utilizando dao no cadastro de cursos">
+      <option name="closed" value="true" />
+      <created>1728779270169</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728779270169</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,7 +220,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: Falta a parte de links" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Falta a parte de links" />
+    <MESSAGE value="refact: dependencias maven" />
+    <MESSAGE value="refact: Utilizando dao no registro" />
+    <MESSAGE value="refact: Utilizando dao no login" />
+    <MESSAGE value="refact: Utilizando dao no cadastro de cursos" />
+    <option name="LAST_COMMIT_MESSAGE" value="refact: Utilizando dao no cadastro de cursos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -190,6 +233,11 @@
           <properties class="java.sql.SQLException" package="java.sql" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

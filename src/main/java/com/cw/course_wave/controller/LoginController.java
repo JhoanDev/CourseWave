@@ -1,19 +1,23 @@
 package com.cw.course_wave.controller;
 
-import com.cw.course_wave.database.DatabaseConnection;
+import com.cw.course_wave.dao.UserDao;
+import com.cw.course_wave.model.User;
+import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends HttpServlet {
+
+    private final UserDao userDao = new UserDao();
+    private final Gson gson = new Gson();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,32 +31,25 @@ public class LoginController extends HttpServlet {
         }
 
         try {
-            String sql = "SELECT role FROM users WHERE login = ? AND password = ?";
-            ResultSet resultSet = DatabaseConnection.executeSelect(sql, login, password);
+            User user = userDao.getUserByLoginAndPassword(login, password);
 
-            if (resultSet.next()) {
-                String role = resultSet.getString("role");
+            if (user != null) {
+                request.getSession().setAttribute("user", user);
 
-
-                HttpSession session = request.getSession();
-                session.setAttribute("login", login);
-                session.setAttribute("role", role);
-
-                if ("teacher".equals(role)) {
+                if (Objects.equals(user.getRole(), "teacher")) {
                     response.sendRedirect("teacher_dashboard.jsp");
-                } else if ("student".equals(role)) {
-                    response.sendRedirect("student_dasboard.jsp");
+                } else if (Objects.equals(user.getRole(), "student")) {
+                    response.sendRedirect("student_dashboard.jsp");
                 }
             } else {
-                // Caso as credenciais estejam erradas
                 request.setAttribute("error", "Login ou senha inválidos.");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "Erro ao realizar o login. Tente novamente.");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
+
 }

@@ -1,6 +1,8 @@
 package com.cw.course_wave.controller;
 
+import com.cw.course_wave.dao.UserDao;
 import com.cw.course_wave.database.DatabaseConnection;
+import com.cw.course_wave.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,6 +14,8 @@ import java.sql.SQLException;
 
 @WebServlet(name = "RegisterController", urlPatterns = "/register")
 public class RegisterController extends HttpServlet {
+
+    private final UserDao userDao = new UserDao();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,16 +38,16 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
-        // Query para inserir os dados
-        String sql = "INSERT INTO users (name, login, email, password, role) VALUES (?, ?, ?, ?, ?)";
+
+        User user = new User(name, login, email, password, role);
         try {
-            DatabaseConnection.executeQuery(sql, name, login, email, password, role);
-            response.sendRedirect("index.jsp?success=true"); // retornando para a pagina de login
-        } catch (SQLException e) {
+            userDao.insertUser(user);
+            response.sendRedirect("index.jsp?success=true");
+        } catch (Exception e) {
             e.printStackTrace();
-            // Define uma mensagem de erro e redireciona de volta para o formulário de registro
-            request.setAttribute("error", "Erro ao registrar o usuário. Tente novamente.");
+            request.setAttribute("error", "Erro ao cadastrar usuário. Tente novamente.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
+
     }
 }

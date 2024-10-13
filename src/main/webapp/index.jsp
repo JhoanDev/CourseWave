@@ -73,7 +73,7 @@
 
 <div class="container">
     <h2>Login</h2>
-    <form action="login" method="POST"> <!-- O caminho deve corresponder ao servlet -->
+    <form action="login" method="POST">
         <div class="form-group">
             <label for="login">Nome de Usuário:</label>
             <input type="text" id="login" name="login" required>
