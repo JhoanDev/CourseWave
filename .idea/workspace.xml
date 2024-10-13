@@ -9,11 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="refact: Utilizando dao no registro">
+    <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="refact: Utilizando dao no login">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/CourseDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/LinkDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/model/Course.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/model/Link.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CourseController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +168,7 @@
       <workItem from="1728587596997" duration="632000" />
       <workItem from="1728748034432" duration="4027000" />
       <workItem from="1728775667823" duration="1602000" />
-      <workItem from="1728777480004" duration="336000" />
+      <workItem from="1728777480004" duration="1630000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Falta a parte de links">
       <option name="closed" value="true" />
@@ -192,7 +194,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728777030481</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="refact: Utilizando dao no login">
+      <option name="closed" value="true" />
+      <created>1728777979345</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728777979345</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +212,8 @@
     <MESSAGE value="feat: Falta a parte de links" />
     <MESSAGE value="refact: dependencias maven" />
     <MESSAGE value="refact: Utilizando dao no registro" />
-    <option name="LAST_COMMIT_MESSAGE" value="refact: Utilizando dao no registro" />
+    <MESSAGE value="refact: Utilizando dao no login" />
+    <option name="LAST_COMMIT_MESSAGE" value="refact: Utilizando dao no login" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

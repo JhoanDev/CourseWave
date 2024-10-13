@@ -1,6 +1,8 @@
 package com.cw.course_wave.controller;
 
-import com.cw.course_wave.database.DatabaseConnection;
+import com.cw.course_wave.dao.CourseDao;
+import com.cw.course_wave.model.Course;
+import com.cw.course_wave.model.Link;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,15 +15,15 @@ import java.sql.SQLException;
 @WebServlet(name = "CourseController", urlPatterns = "/cadastrarCurso")
 public class CourseController extends HttpServlet {
 
+    private final CourseDao courseDao = new CourseDao();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Recuperando parâmetros do formulário
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String hours = request.getParameter("hours");
         String teacherIdParam = request.getParameter("teacherId");
 
-        // Validação básica
         if (title == null || description == null || hours == null || teacherIdParam == null) {
             request.setAttribute("error", "Todos os campos são obrigatórios.");
             request.getRequestDispatcher("register_course.jsp").forward(request, response);
@@ -38,25 +40,20 @@ public class CourseController extends HttpServlet {
             return;
         }
 
-        try {
-            // Inserindo o curso e obtendo o ID gerado
-            String courseSql = "INSERT INTO courses (title, description, hours, teacher_id) VALUES (?, ?, ?, ?)";
-            int courseId = DatabaseConnection.executeQueryWithGeneratedKey(courseSql, title, description, Integer.parseInt(hours), teacherId);
+        Course course = new Course(title, description, Integer.parseInt(hours), teacherId);
 
-            // Inserindo links, se houver
-            String[] linkNames = request.getParameterValues("linkName[]");
-            String[] linkTypes = request.getParameterValues("linkType[]");
-            String[] linkUrls = request.getParameterValues("linkUrl[]");
+        String[] linkNames = request.getParameterValues("linkName[]");
+        String[] linkTypes = request.getParameterValues("linkType[]");
+        String[] linkUrls = request.getParameterValues("linkUrl[]");
 
-            if (linkNames != null) {
-                String linkSql = "INSERT INTO links (course_id, name, type, url) VALUES (?, ?, ?, ?)";
-                for (int i = 0; i < linkNames.length; i++) {
-                    if (linkNames[i] != null && !linkNames[i].isEmpty()) {
-                        DatabaseConnection.executeQuery(linkSql, courseId, linkNames[i], linkTypes[i], linkUrls[i]);
-                    }
-                }
+        for (int i = 0; i < linkNames.length; i++) {
+            if (linkNames[i] != null && !linkNames[i].isEmpty()) {
+                course.addLink(new Link(linkNames[i], linkUrls[i], linkTypes[i]));
             }
+        }
 
+        try {
+            courseDao.insertCourse(course);
             response.sendRedirect("teacher_dashboard.jsp?success=true"); // Redireciona após o cadastro
         } catch (SQLException e) {
             e.printStackTrace();
