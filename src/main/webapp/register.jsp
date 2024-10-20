@@ -95,12 +95,12 @@
 
     <div class="form-group">
       <label for="password">Senha:</label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" id="password" name="password" required minlength="8">
     </div>
 
     <div class="form-group">
       <label for="confirm-password">Confirmar Senha:</label>
-      <input type="password" id="confirm-password" name="confirm-password" required>
+      <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
     </div>
 
     <div class="role-selector">

@@ -118,6 +118,21 @@ public class CourseDao {
         return availableCourses;
     }
 
+    public String getProfessorNameByCourseId(int courseId) throws SQLException {
+        String sql = "SELECT u.name FROM enrollment e " +
+                "JOIN users u ON e.user_id = u.id " +
+                "WHERE e.course_id = ? AND u.role = 'teacher'";
+        var resultSet = DatabaseConnection.executeSelect(sql, courseId);
+
+        if (resultSet.next()) {
+            return resultSet.getString("name");
+        }
+
+        resultSet.close();
+        return null; // Retorna null se não houver professor associado ao curso
+    }
+
+
 
     public void deleteCourse(int courseId) throws SQLException {
         String sql = "DELETE FROM courses WHERE id = ?";

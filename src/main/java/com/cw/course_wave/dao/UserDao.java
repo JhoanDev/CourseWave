@@ -1,5 +1,7 @@
 package com.cw.course_wave.dao;
 
+import com.cw.course_wave.util.Utils;
+
 import com.cw.course_wave.database.DatabaseConnection;
 import com.cw.course_wave.factory.StudentFactory;
 import com.cw.course_wave.factory.TeacherFactory;
@@ -8,9 +10,10 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    public void insertUser(User user) throws SQLException {
+    public void insertUser(User user) throws Exception {
+        String password = Utils.generateMD5(user.getPassword());
         String sql = "INSERT INTO users (name, login, email, password, role) VALUES (?, ?, ?, ?, ?)";
-        DatabaseConnection.executeQuery(sql, user.getName(), user.getLogin(), user.getEmail(), user.getPassword(), user.getRole());
+        DatabaseConnection.executeQuery(sql, user.getName(), user.getLogin(), user.getEmail(), password, user.getRole());
     }
 
     public User getUserById(int id) throws SQLException {
@@ -25,9 +28,10 @@ public class UserDao {
         return null;
     }
 
-    public User getUserByLoginAndPassword(String login, String password) throws SQLException {
+    public User getUserByLoginAndPassword(String login, String password) throws Exception {
         String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
-        var resultSet = DatabaseConnection.executeSelect(sql, login, password);
+        String pass = Utils.generateMD5(password);
+        var resultSet = DatabaseConnection.executeSelect(sql, login, pass);
 
         if (resultSet.next()) {
             return createUserFromResultSet(resultSet);
@@ -41,13 +45,13 @@ public class UserDao {
         String role = resultSet.getString("role");
         User user;
 
-        if (false) {
+        if ("student".equals(role)) {
             user = new StudentFactory().createUser(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("login"),
                     resultSet.getString("email"),
-                    resultSet.getString("password,")
+                    resultSet.getString("password")
             );
         } else {
             user = new TeacherFactory().createUser(
@@ -60,4 +64,6 @@ public class UserDao {
         }
         return user;
     }
+
+
 }

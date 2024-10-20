@@ -115,6 +115,9 @@
 </div>
 
 <div class="container">
+    <div style="text-align: left; margin-bottom: 20px;">
+        <button class="btn btn-remove" onclick="logout();">Logout</button>
+    </div>
     <!-- Perfil -->
     <div class="section">
         <h2>Perfil</h2>
@@ -134,7 +137,9 @@
                 <div class="course-info">
                     <strong>Título:</strong> <%= course.getTitle() %> <br>
                     <strong>Descrição:</strong> <%= course.getDescription() %> <br>
+                    <strong>Professor:</strong> <%= courseDao.getProfessorNameByCourseId(course.getId()) %> <br>
                     <span class="course-hours"><strong>Carga Horária:</strong> <%= course.getHours() %> horas</span>
+
                 </div>
                 <button class="btn">Ver Curso</button>
             </li>
@@ -161,6 +166,7 @@
                 <div class="course-info">
                     <strong>Título:</strong> <%= course.getTitle() %> <br>
                     <strong>Descrição:</strong> <%= course.getDescription() %> <br>
+                    <strong>Professor:</strong> <%= courseDao.getProfessorNameByCourseId(course.getId()) %> <br>
                     <span class="course-hours"><strong>Carga Horária:</strong> <%= course.getHours() %> horas</span>
                 </div>
                 <button class="btn">Matricular-se</button>
@@ -176,6 +182,16 @@
         </ul>
     </div>
 </div>
+<script>
 
+    function logout() {
+        // Redireciona para um servlet que limpa a sessão
+        window.location.href = 'index.jsp';
+        <%
+        session.invalidate();
+        %>
+
+    }
+</script>
 </body>
 </html>
