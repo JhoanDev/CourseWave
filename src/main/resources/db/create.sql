@@ -18,9 +18,8 @@ CREATE TABLE courses (
                          title VARCHAR(255) NOT NULL,
                          description TEXT NOT NULL,
                          hours INT NOT NULL,
-                         teacher_id INT,
-                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                         FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE SET NULL
+                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
 );
 
 CREATE TABLE links (
@@ -32,3 +31,14 @@ CREATE TABLE links (
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
+
+CREATE TABLE enrollment (
+                     user_id int NOT NULL,
+                     course_id int NOT NULL,
+                     enrollment_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                     completed tinyint(1) DEFAULT '0',
+                     PRIMARY KEY (user_id, course_id),
+                     KEY course_id (course_id),
+                     CONSTRAINT enrollment_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+                     CONSTRAINT enrollment_ibfk_2 FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE CASCADE
+)

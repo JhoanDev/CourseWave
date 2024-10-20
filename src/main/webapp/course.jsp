@@ -186,13 +186,22 @@
 
 <div class="header">
     <h1>Detalhes do Curso: <%= course.getTitle() %></h1>
+    <div style="text-align: left;">
+        <% if (userTypeNumber == 1) { %>
+        <button class="btn" onclick="location.href='teacher_dashboard.jsp';">Voltar</button>
+        <% } else { %>
+        <button class="btn" onclick="location.href='student_dashboard.jsp';">Voltar</button>
+        <% } %>
+    </div>
 </div>
+
 
 <div class="container">
     <div class="section">
         <h2>Informações do Curso</h2>
         <p><strong>Título:</strong> <%= course.getTitle() %></p>
         <p><strong>Descrição:</strong> <%= course.getDescription() %></p>
+        <p><strong>Professor:</strong> <%= courseDao.getProfessorNameByCourseId(course.getId()) %> <br></p>
         <p><strong>Carga Horária:</strong> <%= course.getHours() %> horas</p>
 
         <% if (userTypeNumber == 1) { %>
@@ -203,7 +212,12 @@
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit" class="btn btn-remove" onclick="return confirm('Tem certeza que deseja remover este curso?');">Remover Curso</button>
         </form>
-        <% } %>
+        <% }else { %>
+        <button class="btn" onclick="location.href='completeEnrollment?enrollmentId=<%=courseId %>';">Concluir Curso</button>
+        <button class="btn btn-remove" onclick="location.href='deleteEnrollment?enrollmentId=<%=courseId %>';">Desmatricular</button>
+        <%
+        }
+        %>
     </div>
 
     <div class="section">
@@ -251,6 +265,11 @@
             %>
         </ul>
     </div>
+
+</div>
+
+
+</li>
 </div>
 
 </body>

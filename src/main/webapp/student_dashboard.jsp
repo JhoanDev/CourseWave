@@ -3,13 +3,14 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.cw.course_wave.model.User" %>
 <%@ page import="com.cw.course_wave.dao.CourseDao" %>
+<%@ page import="com.cw.course_wave.dao.EnrollmentDao" %>
 <%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Professor - Course Wave</title>
+    <title>Painel do Estudante - Course Wave</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,36 +47,36 @@
             padding: 0;
         }
         .course-list li {
-            display: flex; /* Utiliza flexbox para uma apresentação mais bonita */
-            justify-content: space-between; /* Alinha os itens com espaço entre eles */
+            display: flex;
+            justify-content: space-between;
             padding: 10px;
             border-bottom: 1px solid #ddd;
-            cursor: pointer; /* Adiciona um cursor pointer */
-            transition: background-color 0.3s; /* Adiciona uma transição suave */
-            align-items: center; /* Alinha os itens verticalmente */
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-items: center;
         }
         .course-list li:hover {
-            background-color: #f0f0f0; /* Altera a cor de fundo ao passar o mouse */
+            background-color: #f0f0f0;
         }
         .course-info {
-            flex-grow: 1; /* Permite que esta parte cresça e ocupe espaço */
-            margin-right: 20px; /* Adiciona espaço entre as informações do curso e o botão */
+            flex-grow: 1;
+            margin-right: 20px;
         }
         .course-hours {
             font-weight: bold;
         }
         .btn {
-            background-color: #007bff; /* Altera a cor do botão */
+            background-color: #007bff;
             color: white;
-            padding: 10px 15px; /* Adiciona um pouco mais de padding */
+            padding: 10px 15px;
             text-decoration: none;
             border-radius: 5px;
             cursor: pointer;
-            border: none; /* Remove a borda padrão */
-            transition: background-color 0.3s; /* Adiciona uma transição suave */
+            border: none;
+            transition: background-color 0.3s;
         }
         .btn:hover {
-            background-color: #0056b3; /* Cor do botão ao passar o mouse */
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -84,7 +85,7 @@
 <%
     // Recuperando os dados do usuário da sessão
     User user = (User) session.getAttribute("user");
-    session.setAttribute("usertype", 1);
+
     // Verificando se o usuário está logado
     if (user == null) {
         response.sendRedirect("index.jsp"); // Redireciona para a página de login se não houver usuário
@@ -93,23 +94,24 @@
 
     String nome = user.getName();
     String email = user.getEmail();
-    int professorId = user.getId(); // ID do professor
-    int userTypeNumber = 1; // professor
-    // Recuperando a lista de cursos do controlador
+    int estudanteId = user.getId(); // ID do estudante
+
+    // Recuperando a lista de cursos matriculados e cursos disponíveis
     CourseDao courseDao = new CourseDao();
 
-    ArrayList<Course> courses = null;
+    ArrayList<Course> enrolledCourses = null;
+    ArrayList<Course> availableCourses = null;
+
     try {
-        courses = courseDao.getCoursesByTeacherId(professorId);
+        enrolledCourses = courseDao.getCoursesByStudentId(estudanteId);
+        availableCourses = courseDao.getAvailableCoursesForStudent(estudanteId);
     } catch (SQLException e) {
         throw new RuntimeException(e);
     }
-
 %>
 
 <div class="header">
-    <h1>Bem-vindo, Professor <%= nome %>!</h1>
-
+    <h1>Bem-vindo, <%= nome %>!</h1>
 </div>
 
 <div class="container">
@@ -123,50 +125,73 @@
         <p>Email: <%= email %></p>
     </div>
 
-    <!-- Cursos Cadastrados -->
+    <!-- Cursos Matriculados -->
     <div class="section">
-        <h2>Seus Cursos</h2>
+        <h2>Cursos Matriculados</h2>
         <ul class="course-list">
             <%
-                if (courses != null && !courses.isEmpty()) {
-                    for (Course course : courses) {
+                if (enrolledCourses != null && !enrolledCourses.isEmpty()) {
+                    for (Course course : enrolledCourses) {
             %>
-            <li onclick="location.href='course.jsp?courseId=<%= course.getId() %>';">
+            <li onclick="location.href='course.jsp?courseId=<%= course.getId() %>'; ">
                 <div class="course-info">
                     <strong>Título:</strong> <%= course.getTitle() %> <br>
                     <strong>Descrição:</strong> <%= course.getDescription() %> <br>
+                    <strong>Professor:</strong> <%= courseDao.getProfessorNameByCourseId(course.getId()) %> <br>
                     <span class="course-hours"><strong>Carga Horária:</strong> <%= course.getHours() %> horas</span>
+
                 </div>
-                <button class="btn">Detalhes</button> <!-- Botão de detalhes -->
+                <button class="btn">Ver Curso</button>
             </li>
             <%
                 }
             } else {
             %>
-            <li>Você ainda não cadastrou nenhum curso.</li>
+            <li>Você ainda não está matriculado em nenhum curso.</li>
             <%
                 }
             %>
         </ul>
     </div>
 
+    <!-- Cursos Disponíveis para Matrícula -->
     <div class="section">
-        <h2>Cadastrar Novo Curso</h2>
-        <a href="register_course.jsp?professorId=<%= professorId %>" class="btn">Cadastrar Curso</a>
+        <h2>Cursos Disponíveis</h2>
+        <ul class="course-list">
+            <%
+                if (availableCourses != null && !availableCourses.isEmpty()) {
+                    for (Course course : availableCourses) {
+            %>
+            <li onclick="location.href='enroll?courseId=<%= course.getId() %>'; ">
+                <div class="course-info">
+                    <strong>Título:</strong> <%= course.getTitle() %> <br>
+                    <strong>Descrição:</strong> <%= course.getDescription() %> <br>
+                    <strong>Professor:</strong> <%= courseDao.getProfessorNameByCourseId(course.getId()) %> <br>
+                    <span class="course-hours"><strong>Carga Horária:</strong> <%= course.getHours() %> horas</span>
+                </div>
+                <button class="btn">Matricular-se</button>
+            </li>
+            <%
+                }
+            } else {
+            %>
+            <li>Não há cursos disponíveis para matrícula no momento.</li>
+            <%
+                }
+            %>
+        </ul>
     </div>
 </div>
-
 <script>
 
     function logout() {
-
+        // Redireciona para um servlet que limpa a sessão
         window.location.href = 'index.jsp';
         <%
-       session.invalidate();
+        session.invalidate();
         %>
 
     }
 </script>
-
 </body>
 </html>

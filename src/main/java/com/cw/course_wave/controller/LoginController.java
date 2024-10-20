@@ -33,11 +33,11 @@ public class LoginController extends HttpServlet {
 
             if (user != null) {
                 request.getSession().setAttribute("user", user);
-
                 if (Objects.equals(user.getRole(), "teacher")) {
                     response.sendRedirect("teacher_dashboard.jsp");
                 } else if (Objects.equals(user.getRole(), "student")) {
                     response.sendRedirect("student_dashboard.jsp");
+
                 }
             } else {
                 request.setAttribute("error", "Login ou senha inválidos.");
@@ -47,6 +47,8 @@ public class LoginController extends HttpServlet {
             e.printStackTrace();
             request.setAttribute("error", "Erro ao realizar o login. Tente novamente.");
             request.getRequestDispatcher("index.jsp").forward(request, response);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

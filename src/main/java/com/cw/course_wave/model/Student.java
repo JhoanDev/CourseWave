@@ -15,13 +15,6 @@ public class Student implements User {
         this.id = id;
     }
 
-    public Student(String name, String login, String email, String password) {
-        this.name = name;
-        this.login = login;
-        this.email = email;
-        this.password = password;
-    }
-
     @Override
     public void setName(String name) {
         this.name = name;
@@ -50,6 +43,13 @@ public class Student implements User {
     @Override
     public int getId() {
         return id;
+    }
+
+    public Student(String name, String login, String email, String password) {
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.password = password;
     }
 
     @Override
