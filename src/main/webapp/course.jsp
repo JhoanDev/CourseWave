@@ -251,6 +251,20 @@
             %>
         </ul>
     </div>
+    <%
+        // Verifica se o usuário é do tipo 0 (estudante)
+        if (userTypeNumber == 0) {
+    %>
+    <div class="section">
+        <button class="btn" onclick="location.href='completeEnrollment?enrollmentId=<%= courseId %>';">Concluir Curso</button>
+    </div>
+    <%
+        }
+    %>
+</div>
+
+
+</li>
 </div>
 
 </body>

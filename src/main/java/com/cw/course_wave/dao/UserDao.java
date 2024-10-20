@@ -41,7 +41,7 @@ public class UserDao {
         String role = resultSet.getString("role");
         User user;
 
-        if ("student".equals(role)) {
+        if (false) {
             user = new StudentFactory().createUser(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),

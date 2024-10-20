@@ -8,8 +8,8 @@ public class DatabaseConnection {
     private static final Logger logger = Logger.getLogger(DatabaseConnection.class.getName());
 
     private static final String URL = "jdbc:mysql://localhost:3306/coursewave";
-    private static final String USER = "jhoan";
-    private static final String PASSWORD = "13062004";
+    private static final String USER = "***";
+    private static final String PASSWORD = "*****";
 
     private DatabaseConnection() {}
 

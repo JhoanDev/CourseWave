@@ -10,7 +10,7 @@ public class Course {
     private ArrayList<Link> links;
     private int userId;
 
-    public Course(int id, String title, String description, int hours, int userId) {
+    public Course(int id, String title, String description, int hours) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -24,7 +24,6 @@ public class Course {
         this.title = title;
         this.description = description;
         this.hours = hours;
-        this.userId = userId;
         this.links = new ArrayList<>();
     }
 
@@ -72,11 +71,4 @@ public class Course {
         this.hours = hours;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 }
