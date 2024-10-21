@@ -10,15 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="feat: remover curso">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/DeleteEnrollmentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/util/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/LogoutController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/CourseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/CourseDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/database/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/student_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student_dashboard.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" afterDir="false" />
     </list>
@@ -94,7 +87,7 @@
     "Tomcat Server.Tomcat 9.0.96.executor": "Run",
     "Tomcat Server.Tomcat 9.executor": "Run",
     "Tomcat Server.course.jsp.executor": "Run",
-    "git-widget-placeholder": "feature/augusto",
+    "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/gusti/Documents/Esigestágio/CourseWave/src/main/webapp",
     "node.js.detected.package.eslint": "true",
@@ -108,6 +101,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\gusti\Documents\Esigestágio\CourseWave\src\main\webapp" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.cw.course_wave.controller" />
     </key>
   </component>
   <component name="RunDashboard">

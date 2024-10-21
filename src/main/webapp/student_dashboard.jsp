@@ -116,7 +116,9 @@
 
 <div class="container">
     <div style="text-align: left; margin-bottom: 20px;">
-        <button class="btn btn-remove" onclick="logout();">Logout</button>
+        <form action="logout" method="post">
+            <button type="submit" class="btn btn-remove">Logout</button>
+        </form>
     </div>
     <!-- Perfil -->
     <div class="section">
@@ -182,16 +184,6 @@
         </ul>
     </div>
 </div>
-<script>
 
-    function logout() {
-        // Redireciona para um servlet que limpa a sessão
-        window.location.href = 'index.jsp';
-        <%
-        session.invalidate();
-        %>
-
-    }
-</script>
 </body>
 </html>

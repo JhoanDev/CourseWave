@@ -114,7 +114,9 @@
 
 <div class="container">
     <div style="text-align: left; margin-bottom: 20px;">
-        <button class="btn btn-remove" onclick="logout();">Logout</button>
+        <form action="logout" method="post">
+            <button type="submit" class="btn btn-remove">Logout</button>
+        </form>
     </div>
     <!-- Perfil -->
     <div class="section">
@@ -155,18 +157,6 @@
         <a href="register_course.jsp?professorId=<%= professorId %>" class="btn">Cadastrar Curso</a>
     </div>
 </div>
-
-<script>
-
-    function logout() {
-
-        window.location.href = 'index.jsp';
-        <%
-       session.invalidate();
-        %>
-
-    }
-</script>
 
 </body>
 </html>
