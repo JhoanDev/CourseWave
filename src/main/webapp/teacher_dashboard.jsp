@@ -12,20 +12,32 @@
     <title>Painel do Professor - Course Wave</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
             margin: 0;
             padding: 0;
         }
         .header {
             background-color: #007bff;
             color: white;
-            padding: 15px 20px;
-            text-align: center;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            align-items: center; /* Alinha os botões na mesma altura */
         }
         .container {
-            max-width: 1000px;
-            margin: auto;
+            max-width: 900px;
+            margin: 30px auto;
             padding: 20px;
         }
         .section {
@@ -33,69 +45,103 @@
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .section:hover {
+            transform: translateY(-5px);
         }
         .section h2 {
             color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
         }
         .section p {
-            color: #555;
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
         }
         .course-list {
             list-style: none;
             padding: 0;
         }
         .course-list li {
-            display: flex; /* Utiliza flexbox para uma apresentação mais bonita */
-            justify-content: space-between; /* Alinha os itens com espaço entre eles */
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer; /* Adiciona um cursor pointer */
-            transition: background-color 0.3s; /* Adiciona uma transição suave */
-            align-items: center; /* Alinha os itens verticalmente */
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            background-color: #fafafa;
+            transition: background-color 0.3s ease;
+            align-items: center;
         }
         .course-list li:hover {
-            background-color: #f0f0f0; /* Altera a cor de fundo ao passar o mouse */
+            background-color: #f0f8ff;
         }
         .course-info {
-            flex-grow: 1; /* Permite que esta parte cresça e ocupe espaço */
-            margin-right: 20px; /* Adiciona espaço entre as informações do curso e o botão */
+            flex-grow: 1;
+            margin-right: 20px;
         }
         .course-hours {
             font-weight: bold;
+            color: #333;
         }
         .btn {
-            background-color: #007bff; /* Altera a cor do botão */
             color: white;
-            padding: 10px 15px; /* Adiciona um pouco mais de padding */
+            padding: 10px 15px;
             text-decoration: none;
             border-radius: 5px;
             cursor: pointer;
-            border: none; /* Remove a borda padrão */
-            transition: background-color 0.3s; /* Adiciona uma transição suave */
+            border: none;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+            line-height: 1.5; /* Ajusta a linha para centralizar texto */
+            display: flex; /* Garante que o texto fique centralizado */
+            align-items: center; /* Centraliza verticalmente */
+            justify-content: center; /* Centraliza horizontalmente */
         }
-        .btn:hover {
-            background-color: #0056b3; /* Cor do botão ao passar o mouse */
+        .btn-cadastrar {
+            background-color: #28a745; /* Verde para cadastrar */
+        }
+        .btn-cadastrar:hover {
+            background-color: #218838; /* Verde escuro ao passar o mouse */
+        }
+        .btn-logout {
+            background-color: #dc3545; /* Vermelho para logout */
+        }
+        .btn-logout:hover {
+            background-color: #c82333; /* Vermelho escuro ao passar o mouse */
+        }
+        .btn-details {
+            background-color: #007bff; /* Azul para detalhes */
+        }
+        .btn-details:hover {
+            background-color: #0056b3; /* Azul escuro ao passar o mouse */
+        }
+        .profile-info p {
+            font-size: 1rem;
+            color: #333;
+        }
+        .profile-info p span {
+            font-weight: bold;
+            color: #007bff;
         }
     </style>
 </head>
 <body>
 
 <%
-    // Recuperando os dados do usuário da sessão
     User user = (User) session.getAttribute("user");
     session.setAttribute("usertype", 1);
-    // Verificando se o usuário está logado
     if (user == null) {
-        response.sendRedirect("index.jsp"); // Redireciona para a página de login se não houver usuário
+        response.sendRedirect("index.jsp");
         return;
     }
 
     String nome = user.getName();
     String email = user.getEmail();
-    int professorId = user.getId(); // ID do professor
-    int userTypeNumber = 1; // professor
-    // Recuperando a lista de cursos do controlador
+    int professorId = user.getId();
     CourseDao courseDao = new CourseDao();
 
     ArrayList<Course> courses = null;
@@ -104,25 +150,24 @@
     } catch (SQLException e) {
         throw new RuntimeException(e);
     }
-
 %>
 
 <div class="header">
     <h1>Bem-vindo, Professor <%= nome %>!</h1>
-
+    <div class="btn-group">
+        <a href="register_course.jsp?professorId=<%= professorId %>" class="btn btn-cadastrar">Cadastrar Novo Curso</a>
+        <form action="logout" method="post" style="margin: 0;">
+            <button type="submit" class="btn btn-logout">Logout</button>
+        </form>
+    </div>
 </div>
 
 <div class="container">
-    <div style="text-align: left; margin-bottom: 20px;">
-        <form action="logout" method="post">
-            <button type="submit" class="btn btn-remove">Logout</button>
-        </form>
-    </div>
     <!-- Perfil -->
-    <div class="section">
+    <div class="section profile-info">
         <h2>Perfil</h2>
-        <p>Nome: <%= nome %></p>
-        <p>Email: <%= email %></p>
+        <p>Nome: <span><%= nome %></span></p>
+        <p>Email: <span><%= email %></span></p>
     </div>
 
     <!-- Cursos Cadastrados -->
@@ -135,11 +180,11 @@
             %>
             <li onclick="location.href='course.jsp?courseId=<%= course.getId() %>';">
                 <div class="course-info">
-                    <strong>Título:</strong> <%= course.getTitle() %> <br>
-                    <strong>Descrição:</strong> <%= course.getDescription() %> <br>
+                    <strong>Título:</strong> <%= course.getTitle() %><br>
+                    <strong>Descrição:</strong> <%= course.getDescription() %><br>
                     <span class="course-hours"><strong>Carga Horária:</strong> <%= course.getHours() %> horas</span>
                 </div>
-                <button class="btn">Detalhes</button> <!-- Botão de detalhes -->
+                <button class="btn btn-details">Detalhes</button> <!-- Botão detalhes em azul -->
             </li>
             <%
                 }
@@ -150,11 +195,6 @@
                 }
             %>
         </ul>
-    </div>
-
-    <div class="section">
-        <h2>Cadastrar Novo Curso</h2>
-        <a href="register_course.jsp?professorId=<%= professorId %>" class="btn">Cadastrar Curso</a>
     </div>
 </div>
 

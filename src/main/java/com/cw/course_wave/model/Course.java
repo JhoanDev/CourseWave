@@ -8,15 +8,12 @@ public class Course {
     private String description;
     private int hours;
     private ArrayList<Link> links;
-    private int userId;
 
     public Course(int id, String title, String description, int hours) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.hours = hours;
-
-        this.userId = userId;
         this.links = new ArrayList<>();
     }
 

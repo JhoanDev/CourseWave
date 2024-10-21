@@ -18,7 +18,6 @@
             font-family: 'Arial', sans-serif;
             background-color: #f0f4f8;
             margin: 0;
-            padding: 0;
             line-height: 1.6;
             color: #333;
         }
@@ -27,8 +26,33 @@
             background-color: #007bff;
             color: white;
             padding: 20px;
-            text-align: center;
+            text-align: left;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+            display: inline;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            padding: 15px 30px; /* Aumentando o padding para aumentar o tamanho do botão */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 16px; /* Aumentando o tamanho da fonte */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adicionando sombra ao botão */
+        }
+
+        .btn-back:hover {
+            background-color: #5a6268;
         }
 
         .container {
@@ -91,31 +115,30 @@
         }
 
         .link-list li.pdf i {
-            color: #d9534f; /* Vermelho para PDF */
+            color: #d9534f;
         }
 
         .link-list li.drive i {
-            color: #4285f4; /* Azul para Google Drive */
+            color: #4285f4;
         }
 
         .link-list li.video i {
-            color: #f4b400; /* Amarelo para vídeos */
+            color: #f4b400;
         }
 
         .link-list li.image i {
-            color: #5cb85c; /* Verde para imagens */
+            color: #5cb85c;
         }
 
         .btn {
             background-color: #28a745;
             color: white;
-            padding: 10px 15px;
-            text-decoration: none;
+            padding: 12px 20px; /* Aumentando o padding dos botões de ação */
+            border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-right: 10px;
-            border: none;
             font-size: 16px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
@@ -141,6 +164,11 @@
             .link-list li a {
                 font-size: 16px;
             }
+
+            .btn, .btn-back {
+                width: 100%; /* Tornando os botões ocuparem 100% em telas menores */
+                margin: 5px 0; /* Espaçamento entre os botões */
+            }
         }
     </style>
 </head>
@@ -148,15 +176,14 @@
 <body>
 
 <%
-    // Recuperando o ID do curso da URL
     String courseIdParam = request.getParameter("courseId");
     int courseId = 0;
 
     try {
-        courseId = Integer.parseInt(courseIdParam); // Convertendo o ID para inteiro
+        courseId = Integer.parseInt(courseIdParam);
     } catch (NumberFormatException e) {
         out.println("<h2>ID de curso inválido!</h2>");
-        return; // Encerra a execução se o ID for inválido
+        return;
     }
 
     CourseDao courseDao = new CourseDao();
@@ -165,20 +192,16 @@
         course = courseDao.getCourseById(courseId);
     } catch (SQLException e) {
         out.println("<h2>Erro ao carregar os detalhes do curso!</h2>");
-        e.printStackTrace(); // Você pode querer exibir uma mensagem amigável ao usuário aqui
+        e.printStackTrace();
         return;
     }
 
-    // Verificando se o curso foi encontrado
     if (course == null) {
         out.println("<h2>Curso não encontrado!</h2>");
         return;
     }
 
     List<Link> links = course.getLinks();
-%>
-
-<%
     Integer userTypeNumber = (session != null && session.getAttribute("usertype") != null)
             ? (Integer) session.getAttribute("usertype")
             : 0;
@@ -186,42 +209,32 @@
 
 <div class="header">
     <h1>Detalhes do Curso: <%= course.getTitle() %></h1>
-    <div style="text-align: left;">
-        <% if (userTypeNumber == 1) { %>
-        <button class="btn" onclick="location.href='teacher_dashboard.jsp';">Voltar</button>
-        <% } else { %>
-        <button class="btn" onclick="location.href='student_dashboard.jsp';">Voltar</button>
-        <% } %>
-    </div>
+    <button class="btn-back" onclick="location.href='<%= userTypeNumber == 1 ? "teacher_dashboard.jsp" : "student_dashboard.jsp" %>';">Voltar</button>
 </div>
-
 
 <div class="container">
     <div class="section">
         <h2>Informações do Curso</h2>
         <p><strong>Título:</strong> <%= course.getTitle() %></p>
         <p><strong>Descrição:</strong> <%= course.getDescription() %></p>
-        <p><strong>Professor:</strong> <%= courseDao.getProfessorNameByCourseId(course.getId()) %> <br></p>
+        <p><strong>Professor:</strong> <%= courseDao.getProfessorNameByCourseId(course.getId()) %></p>
         <p><strong>Carga Horária:</strong> <%= course.getHours() %> horas</p>
 
         <% if (userTypeNumber == 1) { %>
-        <!-- Botões de edição e remoção para o professor -->
         <a href="edit_course.jsp?courseId=<%= course.getId() %>" class="btn">Editar Curso</a>
         <form action="course" method="post" style="display:inline;">
             <input type="hidden" name="courseId" value="<%= course.getId() %>">
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit" class="btn btn-remove" onclick="return confirm('Tem certeza que deseja remover este curso?');">Remover Curso</button>
         </form>
-        <% }else { %>
-        <button class="btn" onclick="location.href='completeEnrollment?enrollmentId=<%=courseId %>';">Concluir Curso</button>
-        <button class="btn btn-remove" onclick="location.href='deleteEnrollment?enrollmentId=<%=courseId %>';">Desmatricular</button>
-        <%
-        }
-        %>
+        <% } else { %>
+        <button class="btn" onclick="location.href='completeEnrollment?enrollmentId=<%= courseId %>';">Concluir Curso</button>
+        <button class="btn btn-remove" onclick="location.href='deleteEnrollment?enrollmentId=<%= courseId %>';">Desmatricular</button>
+        <% } %>
     </div>
 
     <div class="section">
-        <h2>Conteúdo do curso</h2>
+        <h2>Conteúdo do Curso</h2>
         <ul class="link-list">
             <%
                 if (links != null && !links.isEmpty()) {
@@ -231,29 +244,30 @@
                         switch (link.getType()) {
                             case "pdf":
                                 linkTypeClass = "pdf";
-                                icon = "<i class='fas fa-file-pdf'></i>";  // Ícone de PDF
+                                icon = "<i class='fas fa-file-pdf'></i>";
                                 break;
                             case "drive":
                                 linkTypeClass = "drive";
-                                icon = "<i class='fas fa-cloud'></i>";  // Ícone de Google Drive
+                                icon = "<i class='fas fa-cloud'></i>";
                                 break;
                             case "video":
                                 linkTypeClass = "video";
-                                icon = "<i class='fas fa-video'></i>";  // Ícone de vídeo
+                                icon = "<i class='fas fa-video'></i>";
                                 break;
                             case "image":
                                 linkTypeClass = "image";
-                                icon = "<i class='fas fa-image'></i>";  // Ícone de imagem
+                                icon = "<i class='fas fa-image'></i>";
                                 break;
                             default:
                                 linkTypeClass = "";
-                                icon = "<i class='fas fa-link'></i>";  // Ícone genérico para outros links
+                                icon = "<i class='fas fa-link'></i>";
                         }
             %>
             <li class="<%= linkTypeClass %>">
                 <%= icon %> <strong><%= link.getName() %></strong>:
-                <a href="<%= link.getUrl().startsWith("http://") || link.getUrl().startsWith("https://") ? link.getUrl() : "https://" + link.getUrl() %>"
-                   target="_blank"><%= link.getUrl() != null ? link.getUrl() : link.getName() %></a>
+                <a href="<%= link.getUrl().startsWith("http://") || link.getUrl().startsWith("https://") ? link.getUrl() : "https://" + link.getUrl() %>" target="_blank">
+                    <%= link.getUrl() != null ? link.getUrl() : link.getName() %>
+                </a>
             </li>
             <%
                 }
@@ -265,11 +279,6 @@
             %>
         </ul>
     </div>
-
-</div>
-
-
-</li>
 </div>
 
 </body>

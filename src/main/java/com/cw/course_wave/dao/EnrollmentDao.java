@@ -4,7 +4,6 @@ import com.cw.course_wave.database.DatabaseConnection;
 import com.cw.course_wave.model.Enrollment;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class EnrollmentDao {

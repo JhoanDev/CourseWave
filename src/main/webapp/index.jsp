@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    session.invalidate(); // Isso encerra a sessão atual.
+%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,65 +10,97 @@
     <title>Login - Course Wave</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 50px;
+            font-family: 'Roboto', sans-serif;
+            background-color: #e9ecef;
+            padding: 0;
             margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            max-width: 400px;
-            margin: auto;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         h2 {
             text-align: center;
             color: #333;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .form-group label {
+            font-weight: 500;
             display: block;
-            margin-bottom: 5px;
-            color: #555;
+            margin-bottom: 8px;
+            color: #495057;
         }
         .form-group input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-group button, .form-group a {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
             font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn-group button, .btn-group a {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
             text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
             color: white;
             text-decoration: none;
-            margin-top: 10px;
         }
-        .form-group button {
-            background-color: #28a745; /* Verde */
+        .btn-group button {
+            background-color: #28a745;
+            margin-right: 10px;
         }
-        .form-group button:hover {
+        .btn-group button:hover {
             background-color: #218838;
         }
-        .register-btn {
-            background-color: #007bff; /* Azul */
+        .btn-group a {
+            background-color: #007bff;
         }
-        .register-btn:hover {
+        .btn-group a:hover {
             background-color: #0056b3;
         }
         .error {
             color: red;
             text-align: center;
+            font-size: 14px;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -82,15 +117,12 @@
             <label for="password">Senha:</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <div class="form-group">
+        <div class="btn-group">
             <button type="submit">Entrar</button>
-        </div>
-        <div class="form-group">
             <a href="register.jsp" class="register-btn">Cadastrar-se</a>
         </div>
         <div class="error">
             <%
-                // Acessando a mensagem de erro setada no LoginController
                 String errorMessage = (String) request.getAttribute("error");
                 if (errorMessage != null) {
             %>

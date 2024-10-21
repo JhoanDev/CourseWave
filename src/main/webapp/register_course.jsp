@@ -24,6 +24,7 @@
         h2 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -32,6 +33,7 @@
             display: block;
             margin-bottom: 5px;
             color: #555;
+            font-weight: bold; /* Estilo mais forte para o label */
         }
         .form-group input, .form-group textarea, .form-group select {
             width: 100%;
@@ -40,6 +42,11 @@
             border-radius: 4px;
             box-sizing: border-box;
             resize: vertical;
+            transition: border-color 0.3s; /* Transição suave */
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: #007bff; /* Azul ao focar */
+            outline: none; /* Remove o contorno padrão */
         }
 
         /* Botão de cadastrar curso */
@@ -52,6 +59,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s; /* Transição suave */
         }
         .cadastrar:hover {
             background-color: #218838;
@@ -68,6 +76,7 @@
             cursor: pointer;
             font-size: 16px;
             margin-bottom: 20px;
+            transition: background-color 0.3s; /* Transição suave */
         }
         .add-link:hover {
             background-color: #0056b3;
@@ -83,6 +92,7 @@
             font-size: 12px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s; /* Transição suave */
         }
         .remove-link:hover {
             background-color: #c82333;
@@ -111,19 +121,18 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
+            transition: border-color 0.3s; /* Transição suave */
         }
         .link-group select {
             flex: 0.6;
         }
     </style>
-
 </head>
 <body>
 
 <div action="course" method="GET">
 
-
-<%
+        <%
     // Recuperando o ID do professor passado na URL
     String professorIdParam = request.getParameter("professorId");
     int professorId = -1;
@@ -136,59 +145,59 @@
     }
 %>
 
-<div class="container">
-    <h2>Cadastrar Curso</h2>
-    <form action="course" method="POST">
-        <div class="form-group" style="display:none;">
-            <input type="hidden" name="teacherId" value="<%= professorId %>">
-        </div>
-        <div class="form-group">
-            <label for="title">Título do Curso:</label>
-            <input type="text" id="title" name="title" required aria-required="true">
-        </div>
-
-        <div class="form-group">
-            <label for="description">Descrição:</label>
-            <textarea id="description" name="description" rows="4" required aria-required="true" style="resize: vertical;"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="hours">Quantidade de Horas:</label>
-            <input type="number" id="hours" name="hours" required aria-required="true">
-        </div>
-
-        <div class="form-group" id="linksContainer">
-            <label>Links/PDFs:</label>
-            <div class="link-group">
-                <input type="text" name="linkName[]" placeholder="Nome do Conteúdo" required aria-required="true">
-                <select name="linkType[]" required aria-required="true">
-                    <option value="" disabled selected>Identificação</option>
-                    <option value="pdf">PDF</option>
-                    <option value="video">Vídeo</option>
-                    <option value="drive">Drive</option>
-                    <option value="image">Imagem</option>
-                </select>
-                <input type="text" name="linkUrl[]" placeholder="Link" required aria-required="true">
-                <button type="button" class="remove-link" onclick="removeLink(this)">Remover</button>
+    <div class="container">
+        <h2>Cadastrar Curso</h2>
+        <form action="course" method="POST">
+            <div class="form-group" style="display:none;">
+                <input type="hidden" name="teacherId" value="<%= professorId %>">
             </div>
-        </div>
+            <div class="form-group">
+                <label for="title">Título do Curso:</label>
+                <input type="text" id="title" name="title" required aria-required="true">
+            </div>
 
-        <button type="button" class="add-link" onclick="addLink()">Adicionar Link/PDF</button>
+            <div class="form-group">
+                <label for="description">Descrição:</label>
+                <textarea id="description" name="description" rows="4" required aria-required="true" style="resize: vertical;"></textarea>
+            </div>
 
-        <div class="form-group">
-            <button type="submit" class="cadastrar">Cadastrar Curso</button>
-        </div>
-    </form>
-</div>
+            <div class="form-group">
+                <label for="hours">Quantidade de Horas:</label>
+                <input type="number" id="hours" name="hours" required aria-required="true">
+            </div>
 
-<script>
-    function addLink() {
-        const container = document.getElementById('linksContainer');
+            <div class="form-group" id="linksContainer">
+                <label>Links/PDFs:</label>
+                <div class="link-group">
+                    <input type="text" name="linkName[]" placeholder="Nome do Conteúdo" required aria-required="true">
+                    <select name="linkType[]" required aria-required="true">
+                        <option value="" disabled selected>Identificação</option>
+                        <option value="pdf">PDF</option>
+                        <option value="video">Vídeo</option>
+                        <option value="drive">Drive</option>
+                        <option value="image">Imagem</option>
+                    </select>
+                    <input type="text" name="linkUrl[]" placeholder="Link" required aria-required="true">
+                    <button type="button" class="remove-link" onclick="removeLink(this)">Remover</button>
+                </div>
+            </div>
 
-        // Criar um novo grupo de inputs para o novo link
-        const newLinkGroup = document.createElement('div');
-        newLinkGroup.classList.add('link-group');
-        newLinkGroup.innerHTML = `
+            <button type="button" class="add-link" onclick="addLink()">Adicionar Link/PDF</button>
+
+            <div class="form-group">
+                <button type="submit" class="cadastrar">Cadastrar Curso</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function addLink() {
+            const container = document.getElementById('linksContainer');
+
+            // Criar um novo grupo de inputs para o novo link
+            const newLinkGroup = document.createElement('div');
+            newLinkGroup.classList.add('link-group');
+            newLinkGroup.innerHTML = `
             <input type="text" name="linkName[]" placeholder="Nome do Conteúdo" required aria-required="true">
             <select name="linkType[]" required aria-required="true">
                 <option value="" disabled selected>Identificação</option>
@@ -201,14 +210,14 @@
             <button type="button" class="remove-link" onclick="removeLink(this)">Remover</button>
         `;
 
-        container.appendChild(newLinkGroup); // Adicionar o novo grupo de inputs ao container
-    }
+            container.appendChild(newLinkGroup); // Adicionar o novo grupo de inputs ao container
+        }
 
-    function removeLink(element) {
-        const linkGroup = element.parentNode;
-        linkGroup.remove(); // Remover o grupo de inputs
-    }
-</script>
+        function removeLink(element) {
+            const linkGroup = element.parentNode;
+            linkGroup.remove(); // Remover o grupo de inputs
+        }
+    </script>
 
 </body>
 </html>

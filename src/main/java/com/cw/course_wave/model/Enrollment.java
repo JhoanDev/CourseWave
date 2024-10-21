@@ -8,7 +8,7 @@ public class Enrollment {
     private Timestamp enrollmentDate;
     private boolean completed;
 
-    public Enrollment(int userId, int courseId, Timestamp enrollmentDate, boolean completed) {
+    public  Enrollment(int userId, int courseId, Timestamp enrollmentDate, boolean completed) {
         this.userId = userId;
         this.courseId = courseId;
         this.enrollmentDate = enrollmentDate != null ? enrollmentDate : new Timestamp(System.currentTimeMillis());
