@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+
 
 
 @WebServlet("/completeEnrollment")
@@ -22,7 +22,6 @@ public class CompleteEnrollmentController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
 
-        // Verifica se o usuário está logado
         if (user == null) {
             response.sendRedirect("index.jsp");
             return;

@@ -11,17 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="eea11f4c-2a72-4eb6-962c-1a77869f3448" name="Changes" comment="feat: remover curso">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/EnrollmentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/dao/EnrollmentDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/database/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/model/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/model/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/model/Enrollment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/model/Enrollment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit_course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit_course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/register_course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register_course.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/student_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student_dashboard.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/teacher_dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/UC_diagram.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CompleteEnrollmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cw/course_wave/controller/CompleteEnrollmentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,12 +44,12 @@
     &quot;assignee&quot;: &quot;JhoanDev&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/JhoanDev/CourseWave.git",
-    "accountId": "9424070e-9922-45ac-8f44-632ca9da858b"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JhoanDev/CourseWave.git&quot;,
+    &quot;accountId&quot;: &quot;9424070e-9922-45ac-8f44-632ca9da858b&quot;
   }
-}]]></component>
+}</component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -95,7 +87,7 @@
     &quot;Tomcat Server.Tomcat 9.0.96.executor&quot;: &quot;Run&quot;,
     &quot;Tomcat Server.Tomcat 9.executor&quot;: &quot;Run&quot;,
     &quot;Tomcat Server.course.jsp.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/gusti/Documents/Esigestágio/CourseWave/src/main/webapp&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -245,6 +237,7 @@
       <workItem from="1729376369473" duration="1559000" />
       <workItem from="1729441585683" duration="13616000" />
       <workItem from="1729524170982" duration="3766000" />
+      <workItem from="1729603509957" duration="614000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Falta a parte de links">
       <option name="closed" value="true" />
