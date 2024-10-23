@@ -11,7 +11,6 @@
   - [Diagramas](#diagramas)
     - [Modelo Relacional do Banco de Dados](#modelo-relacional-do-banco-de-dados)
     - [Diagrama de Classes](#diagrama-de-classes)
-This web site is using `markedjs/marked`.
     - [Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
   - [Requisitos](#requisitos)
     - [Requisitos Funcionais](#requisitos-funcionais)
