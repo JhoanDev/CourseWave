@@ -9,7 +9,9 @@
   - [Participantes](#participantes)
   - [Tecnologias](#tecnologias)
   - [Diagramas](#diagramas)
+    - [Modelo Relacional do Banco de Dados](#modelo-relacional-do-banco-de-dados)
     - [Diagrama de Classes](#diagrama-de-classes)
+This web site is using `markedjs/marked`.
     - [Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
   - [Requisitos](#requisitos)
     - [Requisitos Funcionais](#requisitos-funcionais)
@@ -51,6 +53,10 @@ O projeto **CourseWave** foi construído utilizando as seguintes tecnologias:
 ### Diagrama de Classes
 
 ![Diagrama de Classes](assets/img/class_diagram.png)
+
+### Modelo Relacional do Banco de Dados
+
+![Modelo Relacional](assets/img/modelo_relacional.png)
 
 ### Diagrama de Casos de Uso
 
